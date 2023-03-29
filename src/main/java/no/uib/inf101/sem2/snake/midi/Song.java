@@ -1,4 +1,4 @@
-package no.uib.inf101.sem2.midi;
+package no.uib.inf101.sem2.snake.midi;
 
 import java.io.InputStream;
 

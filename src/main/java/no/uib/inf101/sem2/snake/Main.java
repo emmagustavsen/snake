@@ -1,8 +1,8 @@
-package no.uib.inf101.sem2;
-
-import no.uib.inf101.sem2.view.SampleView;
+package no.uib.inf101.sem2.snake;
 
 import javax.swing.JFrame;
+
+import no.uib.inf101.sem2.snake.view.SampleView;
 
 public class Main {
   public static void main(String[] args) {
