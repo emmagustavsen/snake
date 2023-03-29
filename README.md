@@ -1,3 +1,3 @@
-# Mitt program
+# INF101 sem2 - Snake
+Jasmine Næss og Emma Gustavsen Rolfsnes - våren 2023
 
-Se [oppgaveteksten](./OPPGAVETEKST.md) til semesteroppgave 2. Denne README -filen kan du endre som en del av dokumentasjonen til programmet, hvor du beskriver for en bruker hvordan programmet skal benyttes.
