@@ -46,5 +46,4 @@ public class Coordinate {
         Coordinate coordinate = (Coordinate) o;
         return row == coordinate.row && col == coordinate.col;
     }
-
 }
