@@ -3,6 +3,7 @@ package no.uib.inf101.sem2.snake.view;
 import java.awt.Graphics;
 
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 
 import no.uib.inf101.sem2.grid.CoordinateItem;
 import no.uib.inf101.sem2.snake.model.Tile;
@@ -106,4 +107,12 @@ public class SnakeView extends JComponent {
         return new Dimension(width, height);
     }
 
+    public JFrame getFrame() {
+        JFrame frame = new JFrame("SNAKE");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(this);
+        frame.pack();
+        frame.setVisible(true);
+        return frame;
+    }
 }

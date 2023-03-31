@@ -96,22 +96,24 @@ public class MainMenu extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-		// if (e.getSource() == play) {
-        //     // Create the SnakeModel, SnakeView, and SnakeController
-        //     SnakeModel model = new SnakeModel();
-        //     SnakeView view = new SnakeView(model);
-        //     SnakeController controller = new SnakeController(model, view);
+		if (e.getSource() == play) {
+			frame.dispose();
+            // Create the SnakeModel, SnakeView, and SnakeController
+            SnakeModel model = new SnakeModel();
+            SnakeView view = new SnakeView(model);
+            SnakeController controller = new SnakeController(model, view);
 
-        //     // Push the new screen onto the stack and dispose the current screen
-        //     screenManager.pushScreen(view.getFrame());
-        //     dispose();
-        // } 
+            // Push the new screen onto the stack and dispose the current screen
+            screenManager.pushScreen(view.getFrame());
+        } 
 		if (e.getSource() == options) {
+			frame.dispose();
             // Create and push the options screen onto the stack
             OptionsMenu optionsMenu = new OptionsMenu();
             screenManager.pushScreen(optionsMenu);
         } 
 		else if (e.getSource() == about) {
+			frame.dispose();
             // Create and push the about screen onto the stack
             AboutScreen aboutScreen = new AboutScreen();
             screenManager.pushScreen(aboutScreen);

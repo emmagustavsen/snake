@@ -18,7 +18,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import no.uib.inf101.sem2.snake.controller.SnakeController;
+import no.uib.inf101.sem2.snake.model.SnakeModel;
 import no.uib.inf101.sem2.snake.view.GraphicHelperMethods;
+import no.uib.inf101.sem2.snake.view.SnakeView;
 
 /**
  * Options menu screen.
@@ -36,6 +39,7 @@ public class OptionsMenu extends JFrame implements ActionListener {
     private final JFrame frame;
     private JComboBox<String> colorOpt;
     private JComboBox<String> foodOpt;
+    ScreenManager screenManager;
 
     public OptionsMenu() {
 		frame = new JFrame();
@@ -149,8 +153,19 @@ public class OptionsMenu extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == back) {
             frame.dispose();
+            
             MainMenu mainMenu = new MainMenu();
 			mainMenu.show();
+        }
+        if (e.getSource() == play) {
+            frame.dispose();
+            
+            SnakeModel model = new SnakeModel();
+            SnakeView view = new SnakeView(model);
+            SnakeController controller = new SnakeController(model, view);
+
+            // Push the new screen onto the stack and dispose the current screen
+            screenManager.pushScreen(view.getFrame());
         }
     }
 
