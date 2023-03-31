@@ -40,6 +40,7 @@ public class OptionsMenu extends JFrame implements ActionListener {
     private JComboBox<String> colorOpt;
     private JComboBox<String> foodOpt;
 
+
     public OptionsMenu() {
 		frame = new JFrame();
 		frame.setTitle("Options");
@@ -123,7 +124,7 @@ public class OptionsMenu extends JFrame implements ActionListener {
         contentPane.add(button);
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.add(contentPane);
+		// frame.add(contentPane);
 		frame.setPreferredSize(new Dimension(400, 400));
 		frame.pack();
 		frame.setVisible(true);
@@ -165,13 +166,12 @@ public class OptionsMenu extends JFrame implements ActionListener {
         }
     }
 
+    /**
+     * Shows the options menu.
+     * Is called from the main menu in order to switch between screens.
+     */
     public void show() {
-        // Set the frame properties
-        setTitle("Options");
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(400, 400);
-        setLocationRelativeTo(null); // Center the frame on the screen
-        setVisible(true);
+        frame.setVisible(true);
     }
     
 }

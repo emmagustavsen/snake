@@ -24,6 +24,11 @@ import no.uib.inf101.sem2.snake.view.SnakeView;
 /**
  * Main menu screen.
  * 
+ * Three options:
+ * (1) Start game with default settings,
+ * (2) Options menu to customize snake and food,
+ * (3) About screen with information about the game.
+ * 
  * @author Jasmine Næss
  */
 public class MainMenu extends JFrame implements ActionListener {
@@ -68,8 +73,8 @@ public class MainMenu extends JFrame implements ActionListener {
 	/**
 	 * Adds buttons with a fixed style
 	 * 
-	 * @param buttons - The JPanel containing all the buttons.
-	 * @param name    - The name to be displayed on the button.
+	 * @param buttons
+	 * @param name
 	 * @return
 	 */
 	JButton addButton(JPanel buttons, String name) {
@@ -85,7 +90,7 @@ public class MainMenu extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == play) {
-			frame.dispose();
+			frame.dispose(); // closes the current screen to avoid having multiple screens open at the same time
             SnakeModel model = new SnakeModel();
             SnakeView view = new SnakeView(model);
             SnakeController controller = new SnakeController(model, view);
@@ -93,7 +98,7 @@ public class MainMenu extends JFrame implements ActionListener {
         } 
 		if (e.getSource() == options) {
 			frame.dispose();
-            OptionsMenu optionsMenu = new OptionsMenu();
+			OptionsMenu optionsMenu = new OptionsMenu();
 			optionsMenu.show();
         } 
 		if (e.getSource() == about) {
@@ -103,12 +108,11 @@ public class MainMenu extends JFrame implements ActionListener {
         }
 	}
 
+	/**
+	 * Shows the frame.
+	 * Is called from the other screens in order to go back to the main menu.
+	 */
 	public void show() {
-		// Set the frame properties
-		setTitle("Welcome to Snake!");
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(400, 400);
-		setLocationRelativeTo(null); // Center the frame on the screen
-		setVisible(true);
+		frame.setVisible(true);
 	}
 }
