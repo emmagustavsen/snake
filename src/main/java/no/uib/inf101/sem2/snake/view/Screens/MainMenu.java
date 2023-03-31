@@ -20,7 +20,6 @@ import no.uib.inf101.sem2.snake.controller.SnakeController;
 import no.uib.inf101.sem2.snake.model.SnakeModel;
 import no.uib.inf101.sem2.snake.view.GraphicHelperMethods;
 import no.uib.inf101.sem2.snake.view.SnakeView;
-import no.uib.inf101.sem2.snake.view.Screens.ScreenManager;
 
 /**
  * Main menu screen.
@@ -33,14 +32,8 @@ public class MainMenu extends JFrame implements ActionListener {
     private final JButton options;
     private final JButton about;
     private final JFrame frame;
-	private final ScreenManager screenManager;
-
-	public SnakeModel model;
 
     public MainMenu() {
-		// Create the screen manager and pass in the current frame
-        screenManager = new ScreenManager(this);
-
 		frame = new JFrame();
 		frame.setTitle("Welcome to Snake!");
 
@@ -70,11 +63,6 @@ public class MainMenu extends JFrame implements ActionListener {
 		frame.setPreferredSize(new Dimension(400, 400));
 		frame.pack();
 		frame.setVisible(true);
-
-		// Add action listeners to the buttons
-        play.addActionListener(this);
-        options.addActionListener(this);
-        about.addActionListener(this);
 	}
 
 	/**
@@ -98,25 +86,20 @@ public class MainMenu extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == play) {
 			frame.dispose();
-            // Create the SnakeModel, SnakeView, and SnakeController
             SnakeModel model = new SnakeModel();
             SnakeView view = new SnakeView(model);
             SnakeController controller = new SnakeController(model, view);
-
-            // Push the new screen onto the stack and dispose the current screen
-            screenManager.pushScreen(view.getFrame());
+            view.getFrame();
         } 
 		if (e.getSource() == options) {
 			frame.dispose();
-            // Create and push the options screen onto the stack
             OptionsMenu optionsMenu = new OptionsMenu();
-            screenManager.pushScreen(optionsMenu);
+			optionsMenu.show();
         } 
-		else if (e.getSource() == about) {
+		if (e.getSource() == about) {
 			frame.dispose();
-            // Create and push the about screen onto the stack
             AboutScreen aboutScreen = new AboutScreen();
-            screenManager.pushScreen(aboutScreen);
+			aboutScreen.show();
         }
 	}
 

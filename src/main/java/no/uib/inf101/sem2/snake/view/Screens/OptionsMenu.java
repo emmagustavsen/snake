@@ -39,7 +39,6 @@ public class OptionsMenu extends JFrame implements ActionListener {
     private final JFrame frame;
     private JComboBox<String> colorOpt;
     private JComboBox<String> foodOpt;
-    ScreenManager screenManager;
 
     public OptionsMenu() {
 		frame = new JFrame();
@@ -153,7 +152,6 @@ public class OptionsMenu extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == back) {
             frame.dispose();
-            
             MainMenu mainMenu = new MainMenu();
 			mainMenu.show();
         }
@@ -163,9 +161,7 @@ public class OptionsMenu extends JFrame implements ActionListener {
             SnakeModel model = new SnakeModel();
             SnakeView view = new SnakeView(model);
             SnakeController controller = new SnakeController(model, view);
-
-            // Push the new screen onto the stack and dispose the current screen
-            screenManager.pushScreen(view.getFrame());
+            view.getFrame();
         }
     }
 
