@@ -49,7 +49,7 @@ public class GraphicHelperMethods {
    * @param p The point on which to center the string
    */
   public static void drawCenteredString(Graphics g, String s, Point2D p) {
-    Inf101Graphics.drawCenteredString(g, s, p.getX(), p.getY());
+    GraphicHelperMethods.drawCenteredString(g, s, p.getX(), p.getY());
   }
 
   /**
@@ -82,7 +82,7 @@ public class GraphicHelperMethods {
    * @param shape in whose bounding box the string will be centered
    */
   public static void drawCenteredString(Graphics g, String s, Shape shape) {
-    Inf101Graphics.drawCenteredString(g, s, shape.getBounds2D().getCenterX(),
+    GraphicHelperMethods.drawCenteredString(g, s, shape.getBounds2D().getCenterX(),
         shape.getBounds2D().getCenterY());
   }
 
@@ -124,7 +124,7 @@ public class GraphicHelperMethods {
    */
   public static void drawImage(Graphics g, Image image, double x, double y,
                                double scale) {
-    Inf101Graphics.drawImage(g, image, x, y, scale, 0);
+    GraphicHelperMethods.drawImage(g, image, x, y, scale, 0);
   }
 
   /**
@@ -155,7 +155,7 @@ public class GraphicHelperMethods {
    */
   public static void drawCenteredImage(Graphics g, Image image, double cx, double cy,
                                        double scale) {
-    Inf101Graphics.drawCenteredImage(g, image, cx, cy, scale, 0);
+    GraphicHelperMethods.drawCenteredImage(g, image, cx, cy, scale, 0);
   }
 
   /**
@@ -227,7 +227,7 @@ public class GraphicHelperMethods {
     if (!filename.startsWith("/")) {
       filename = "/" + filename;
     }
-    InputStream is = Inf101Graphics.class.getResourceAsStream(filename);
+    InputStream is = GraphicHelperMethods.class.getResourceAsStream(filename);
     if (is == null) {
       throw new RuntimeException("Could not find image file in resources: " + filename);
     }
