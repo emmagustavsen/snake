@@ -20,7 +20,7 @@ import javax.swing.border.EmptyBorder;
  * 
  * @author Jasmine Næss
  */
-public class AboutScreen implements ActionListener {
+public class AboutScreen extends JFrame implements ActionListener {
 
     private JButton back;
     private final JFrame frame;
@@ -36,7 +36,7 @@ public class AboutScreen implements ActionListener {
         Color bcg = new Color(233, 245, 219);
         contentPane.setBackground(bcg);
 
-        JLabel heading = new JLabel("🧠 About this App 🧠");
+        JLabel heading = new JLabel("💚 About this app 💚");
         heading.setFont(new Font("Monospaced", Font.BOLD, 25));
         heading.setAlignmentX(Component.CENTER_ALIGNMENT);
         contentPane.add(heading);
@@ -73,10 +73,21 @@ public class AboutScreen implements ActionListener {
 		return buttons;
 	}
 
+    public void show() {
+        // Set the frame properties
+        setTitle("About");
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setSize(400, 400);
+        setLocationRelativeTo(null); // Center the frame on the screen
+        setVisible(true);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+        if (e.getSource() == back) {
+            frame.dispose();
+            MainMenu mainMenu = new MainMenu();
+			mainMenu.show();
+        }
     }
-    
 }

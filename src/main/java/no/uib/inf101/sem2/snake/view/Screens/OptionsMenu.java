@@ -20,9 +20,19 @@ import javax.swing.border.EmptyBorder;
 
 import no.uib.inf101.sem2.snake.view.GraphicHelperMethods;
 
-public class OptionsMenu implements ActionListener {
+/**
+ * Options menu screen.
+ * Includes dropdown menus for choosing color of snake and the food to eat.
+ * 
+ * Back button returns to main menu.
+ * Play button starts the game.
+ * 
+ * @author Jasmine Næss
+ */
+public class OptionsMenu extends JFrame implements ActionListener {
 
     private JButton back;
+    private JButton play;
     private final JFrame frame;
     private JComboBox<String> colorOpt;
     private JComboBox<String> foodOpt;
@@ -124,16 +134,33 @@ public class OptionsMenu implements ActionListener {
 		back.addActionListener(this);
 		back.setText("Back");
 
+        play = new JButton();
+		play.addActionListener(this);
+		play.setText("PLAY");
+
 		JPanel buttons = new JPanel();
         buttons.setOpaque(false); // set panel to transparent
 		buttons.add(back);
+        buttons.add(play);
 		return buttons;
 	}
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+        if (e.getSource() == back) {
+            frame.dispose();
+            MainMenu mainMenu = new MainMenu();
+			mainMenu.show();
+        }
+    }
+
+    public void show() {
+        // Set the frame properties
+        setTitle("Options");
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setSize(400, 400);
+        setLocationRelativeTo(null); // Center the frame on the screen
+        setVisible(true);
     }
     
 }
