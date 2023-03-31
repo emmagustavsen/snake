@@ -7,11 +7,13 @@ import no.uib.inf101.sem2.snake.model.SnakeModel;
 import no.uib.inf101.sem2.snake.view.SnakeView;
 import no.uib.inf101.sem2.snake.view.Screens.AboutScreen;
 import no.uib.inf101.sem2.snake.view.Screens.MainMenu;
+import no.uib.inf101.sem2.snake.view.Screens.OptionsMenu;
 
 public class Main {
   public static void main(String[] args) {
     MainMenu menu = new MainMenu();
     AboutScreen about = new AboutScreen();
+    OptionsMenu options = new OptionsMenu();
 
     SnakeModel model = new SnakeModel();
     SnakeView view = new SnakeView(model);
