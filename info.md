@@ -14,3 +14,12 @@
 * welcome-screen, pause, game over
 * spilleren kan velge sang selv (ha et par alternativer)
 * two-player?
+
+## Kilder
+* fargepalett: https://coolors.co/palette/e9f5db-cfe1b9-b5c99a-97a97c-87986a-718355 
+* bilder / figurer i menyene er Apple sine emojier
+
+## Ting som må fikses! :D
+* MenuScreens pushes til main, men alle alternativer i OptionsScreen må implementeres senere
+    * Hvordan koble fargealternativer til skjerm-klassene?
+* Meny ved siden av spillbrettet, med info om tasketrykk, score, osv.
