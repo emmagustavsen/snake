@@ -1,15 +1,21 @@
 package no.uib.inf101.sem2.snake.view;
 
 import java.awt.Graphics;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import no.uib.inf101.sem2.grid.CoordinateItem;
 import no.uib.inf101.sem2.snake.model.Tile;
-
-import java.awt.Color;
-import java.awt.Dimension;
 
 /**
  * 
@@ -17,6 +23,8 @@ import java.awt.Dimension;
  */
 public class SnakeView extends JComponent {
     public SnakeViewable view;
+
+    Color fontColor = new Color(58, 90, 64);
 
     {
         this.setFocusable(true);
@@ -107,12 +115,53 @@ public class SnakeView extends JComponent {
         return new Dimension(width, height);
     }
 
+    /**
+     * Create a new frame with the board and right-hand menu.
+     * 
+     * @return the frame
+     */
     public JFrame getFrame() {
         JFrame frame = new JFrame("SNAKE");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(this);
+    
+        // Create a new panel with BoxLayout
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+    
+        // Add the board to the center of the frame
+        frame.add(this, BorderLayout.CENTER);
+    
+        // Add the menu to the right
+        frame.add(panel, BorderLayout.EAST);
+    
+        JLabel keys = new JLabel("<html> Key menu:" + "<br>"
+        + "----------------" + "<br>"
+        + "move up: ⬆ " + "<br>"
+        + "move down: ⬇ " + "<br>"
+        + "move left: ⬅ " + "<br>"
+        + "move right: ⮕" + "<br>"
+        + "pause: [P]" + "<br>"
+        + "restart: [R]" + "<br>"
+        + "quit: [Q] </html>");
+        keys.setFont(new Font("Monospaced", Font.PLAIN, 18));
+        keys.setForeground(this.fontColor);
+        keys.setBorder(BorderFactory.createEmptyBorder(80, 0, 40, 15));
+
+        ImageIcon imageIcon = new ImageIcon(GraphicHelperMethods.loadImageFromResources("/snake.png"));
+		JLabel imageLabel = new JLabel(imageIcon);
+
+        JLabel score = new JLabel("SCORE: "); // + this.view.getScore());
+        score.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, 15)); 
+        score.setFont(new Font("Monospaced", Font.BOLD, 30));
+        score.setForeground(this.fontColor);
+
+        panel.add(keys);
+        panel.add(imageLabel);
+        panel.add(score);
+    
         frame.pack();
         frame.setVisible(true);
         return frame;
     }
+    
 }
