@@ -7,7 +7,7 @@ import java.awt.event.KeyListener;
 import java.util.Timer;
 
 import no.uib.inf101.sem2.snake.midi.Song;
-import no.uib.inf101.sem2.snake.model.SnakeModel;
+import no.uib.inf101.sem2.snake.model.SnakeModel.GameScreen;
 import no.uib.inf101.sem2.snake.view.SnakeView;
 
 /**
@@ -35,27 +35,55 @@ public class SnakeController implements KeyListener, ActionListener {
         this.song = new Song();
     }
 
-
-    public SnakeController(SnakeModel model, SnakeView view) {
-    }
+    // // se på implementasjonen av denne (brukes i screens)
+    // public SnakeController(SnakeModel model, SnakeView view) {}
 
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-    }
+    public void actionPerformed(ActionEvent e) {}
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-            song.run();
+        if (controller.getGameScreen() == GameScreen.START_GAME) {
+            if (e.getKeyCode() == KeyEvent.VK_UP ||
+                e.getKeyCode() == KeyEvent.VK_DOWN ||
+                e.getKeyCode() == KeyEvent.VK_LEFT ||
+                e.getKeyCode() == KeyEvent.VK_RIGHT) {
+                song.run();
+                controller.setGameScreen(GameScreen.ACTIVE_GAME);
+                viewer.repaint();
+            }
+        }
+
+        if (controller.getGameScreen() == GameScreen.ACTIVE_GAME) {
+            if (e.getKeyCode() == KeyEvent.VK_UP) {
+                controller.moveSnake(-1, 0);
+                viewer.repaint();
+
+            }
+            else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+                controller.moveSnake(1, 0);
+                viewer.repaint();
+            }
+            else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+                controller.moveSnake(0, -1);
+                viewer.repaint();
+            }
+            else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+                controller.moveSnake(0, 1);
+                viewer.repaint();
+            }
+            else if (e.getKeyCode() == KeyEvent.VK_Q) {
+                controller.exit();
+                viewer.repaint();
+            }
         }
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
-    }
+    public void keyReleased(KeyEvent e) {}
 
     @Override
-    public void keyTyped(KeyEvent e) {
-    }
+    public void keyTyped(KeyEvent e) {}
+
 }

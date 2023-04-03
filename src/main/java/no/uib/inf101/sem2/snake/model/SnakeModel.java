@@ -4,26 +4,35 @@ import java.awt.Color;
 
 import no.uib.inf101.sem2.grid.Coordinate;
 import no.uib.inf101.sem2.grid.CoordinateItem;
+import no.uib.inf101.sem2.snake.controller.SnakeControllable;
+import no.uib.inf101.sem2.snake.model.snake.Snake;
 import no.uib.inf101.sem2.snake.view.SnakeViewable;
 
-public class SnakeModel implements SnakeViewable {
+/**
+ * Class representing the model of the game.
+ * 
+ * @author Jasmine Næss
+ */
+public class SnakeModel implements SnakeViewable, SnakeControllable {
 
     public enum GameScreen {
-        // PAUSE,
+        START_GAME,
         ACTIVE_GAME,
+        PAUSE,
         GAME_OVER
     }
 
-    public GameScreen gameScreen = GameScreen.ACTIVE_GAME;
+    public GameScreen gameScreen = GameScreen.START_GAME;
 
     public int rows = 15;
     public int cols = 15;
-    
-    // Custom color for the background tiles
-    public static final Color lightgreen = new Color(233, 237, 201);
-    // public static final Color othergreen = new Color(204, 213, 174);
+    public int score = 0;
 
-    public final Board board = new Board(rows, cols, new Tile(lightgreen, '-')); {
+    // custom colors
+    Color green = new Color(135, 152, 106);
+    Color othergreen = new Color(113, 131, 85);
+
+    public final Board board = new Board(rows, cols, new Tile(green, '-')); {
         this.rows = board.rows;
         this.cols = board.cols;
     }
@@ -35,7 +44,7 @@ public class SnakeModel implements SnakeViewable {
     public SnakeModel() {
         for (int row = 0; row < 15; row++) {
             for (int col = 0; col < 15; col++) {
-    
+
                 // custom colors
                 Color green = new Color(135, 152, 106);
                 Color othergreen = new Color(113, 131, 85);
@@ -47,6 +56,16 @@ public class SnakeModel implements SnakeViewable {
                     this.board.set(new Coordinate(row, col), new Tile(othergreen, '-'));
                 }
             }
+        }
+
+        // add snake to board
+        Snake snake = new Snake(Snake.G.getTile(), Snake.G.getShape());
+
+        // initial position of snake
+        int snakeStartRow = board.getRows() / 2;
+        int snakeStartCol = board.getCols() / 4;
+        for (int i = 0; i < snake.getWidth(); i++) {
+            board.set(new Coordinate(snakeStartRow, snakeStartCol + i), snake.getTile());
         }
     }
 
@@ -81,8 +100,25 @@ public class SnakeModel implements SnakeViewable {
     }
 
     @Override
+    public void setGameScreen(GameScreen gameScreen) {
+        this.gameScreen = gameScreen;
+    }
+
+    @Override
     public int getScore() {
         return board.score;
+    }
+
+    @Override
+    public void moveSnake(int deltaRow, int deltaCol) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'moveSnake'");
+    }
+
+    @Override
+    public void exit() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'exit'");
     }
 
 }

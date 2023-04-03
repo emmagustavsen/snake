@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 
 import no.uib.inf101.sem2.grid.CoordinateItem;
 import no.uib.inf101.sem2.snake.model.Tile;
+import no.uib.inf101.sem2.snake.model.SnakeModel.GameScreen;
 
 /**
  * 
@@ -24,7 +25,10 @@ import no.uib.inf101.sem2.snake.model.Tile;
 public class SnakeView extends JComponent {
     public SnakeViewable view;
 
-    Color fontColor = new Color(58, 90, 64);
+    Color menuFont = new Color(58, 90, 64);
+    Color screenFont = new Color(227, 213, 202);
+    Color transparentgray = new Color(0, 0, 0, 128);
+    int padding = 15;
 
     {
         this.setFocusable(true);
@@ -37,8 +41,31 @@ public class SnakeView extends JComponent {
     @Override
     public void paint(Graphics canvas) {
         super.paint(canvas);
-        int padding = 15;
         drawBoard(canvas, padding, padding, this.getWidth() -2 * padding, this.getHeight() -2 * padding, padding/16);
+
+        // Start screen
+        if (view.getGameScreen() == GameScreen.START_GAME) {
+            canvas.setColor(transparentgray);
+            canvas.fillRect(padding, padding, this.getWidth() - 2 * padding, this.getHeight() - 2 * padding);
+
+            canvas.setColor(screenFont);
+            Font str = new Font("Monospaced", Font.BOLD, 40);
+            canvas.setFont(str);
+            GraphicHelperMethods.drawCenteredString(
+                canvas, "Press any arrow",
+                20, 75, this.getWidth() - 40, this.getHeight() - 540);
+            GraphicHelperMethods.drawCenteredString(
+                canvas, "⬅ ⬆ ⬇ ⮕",
+                20, 125, this.getWidth() - 40, this.getHeight() - 540);
+            GraphicHelperMethods.drawCenteredString(
+                canvas, "to begin!",
+                20, 175, this.getWidth() - 40, this.getHeight() - 540);
+        }
+
+        // Pause screen
+
+        // Game over screen
+
     }
 
     /**
@@ -105,7 +132,7 @@ public class SnakeView extends JComponent {
      * @param padding
      */
     public void drawBoard(Graphics canvas, int x, int y, int width, int height, int padding) {
-            drawBoardWithRightBottomPadding(canvas, x + padding, y + padding, width - padding, height - padding, padding, this.view.iterableBoard());
+        drawBoardWithRightBottomPadding(canvas, x + padding, y + padding, width - padding, height - padding, padding, this.view.iterableBoard());
     }
     
     @Override
@@ -144,7 +171,7 @@ public class SnakeView extends JComponent {
         + "restart: [R]" + "<br>"
         + "quit: [Q] </html>");
         keys.setFont(new Font("Monospaced", Font.PLAIN, 18));
-        keys.setForeground(this.fontColor);
+        keys.setForeground(this.menuFont);
         keys.setBorder(BorderFactory.createEmptyBorder(80, 0, 40, 15));
 
         ImageIcon imageIcon = new ImageIcon(GraphicHelperMethods.loadImageFromResources("/snake.png"));
@@ -153,7 +180,7 @@ public class SnakeView extends JComponent {
         JLabel score = new JLabel("SCORE: "); // + this.view.getScore());
         score.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, 15)); 
         score.setFont(new Font("Monospaced", Font.BOLD, 30));
-        score.setForeground(this.fontColor);
+        score.setForeground(this.menuFont);
 
         panel.add(keys);
         panel.add(imageLabel);
