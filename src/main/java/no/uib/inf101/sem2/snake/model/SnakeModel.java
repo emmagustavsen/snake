@@ -1,11 +1,13 @@
 package no.uib.inf101.sem2.snake.model;
 
 import java.awt.Color;
+import java.util.Random;
 
 import no.uib.inf101.sem2.grid.Coordinate;
 import no.uib.inf101.sem2.grid.CoordinateItem;
 import no.uib.inf101.sem2.snake.controller.SnakeControllable;
-import no.uib.inf101.sem2.snake.model.snake.Snake;
+import no.uib.inf101.sem2.snake.model.objects.Apple;
+import no.uib.inf101.sem2.snake.model.objects.Snake;
 import no.uib.inf101.sem2.snake.view.SnakeViewable;
 
 /**
@@ -23,6 +25,7 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
     }
 
     public GameScreen gameScreen = GameScreen.START_GAME;
+    public Random random = new Random();
 
     public int rows = 15;
     public int cols = 15;
@@ -31,6 +34,7 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
     // custom colors
     Color green = new Color(135, 152, 106);
     Color othergreen = new Color(113, 131, 85);
+    Color red = new Color(188, 71, 73);
 
     public final Board board = new Board(rows, cols, new Tile(green, '-')); {
         this.rows = board.rows;
@@ -44,16 +48,12 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
     public SnakeModel() {
         for (int row = 0; row < 15; row++) {
             for (int col = 0; col < 15; col++) {
-
-                // custom colors
-                Color green = new Color(135, 152, 106);
-                Color othergreen = new Color(113, 131, 85);
     
                 if ((row + col) % 2 == 0) {
-                    this.board.set(new Coordinate(row, col), new Tile(green, '-'));
+                    this.board.set(new Coordinate(row, col), new Tile(green, '0'));
                 }
                 else {
-                    this.board.set(new Coordinate(row, col), new Tile(othergreen, '-'));
+                    this.board.set(new Coordinate(row, col), new Tile(othergreen, '0'));
                 }
             }
         }
@@ -67,6 +67,13 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
         for (int i = 0; i < snake.getWidth(); i++) {
             board.set(new Coordinate(snakeStartRow, snakeStartCol + i), snake.getTile());
         }
+
+        // add apple to board
+        Apple apple = new Apple(red, new Random());
+        // set apple to random position on the board
+        int appleRow = random.nextInt(15);
+        int appleCol = random.nextInt(15);
+        board.set(new Coordinate(appleRow, appleCol), apple.getTile());
     }
 
     @Override
