@@ -6,8 +6,7 @@ import java.util.Random;
 import no.uib.inf101.sem2.grid.Coordinate;
 import no.uib.inf101.sem2.grid.CoordinateItem;
 import no.uib.inf101.sem2.snake.controller.SnakeControllable;
-import no.uib.inf101.sem2.snake.model.objects.Apple;
-import no.uib.inf101.sem2.snake.model.objects.Snake;
+import no.uib.inf101.sem2.snake.model.snake.Snake;
 import no.uib.inf101.sem2.snake.view.SnakeViewable;
 
 /**
@@ -69,11 +68,8 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
         }
 
         // add apple to board
-        Apple apple = new Apple(red, new Random());
         // set apple to random position on the board
-        int appleRow = random.nextInt(15);
-        int appleCol = random.nextInt(15);
-        board.set(new Coordinate(appleRow, appleCol), apple.getTile());
+
     }
 
     @Override

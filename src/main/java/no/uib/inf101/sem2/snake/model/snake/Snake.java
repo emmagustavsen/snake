@@ -1,4 +1,4 @@
-package no.uib.inf101.sem2.snake.model.objects;
+package no.uib.inf101.sem2.snake.model.snake;
 
 import java.awt.Color;
 import java.util.LinkedList;
