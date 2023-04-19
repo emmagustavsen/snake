@@ -36,7 +36,7 @@ public class RandomApple implements AppleFactory {
         randomCoord = new Coordinate(row, col);
 
         // make sure the apple doesn't spawn on the snake
-        while (snakeCoords.contains(randomCoord));
+        while (!snakeCoords.contains(randomCoord));
         return randomCoord;
     }
 
@@ -45,5 +45,4 @@ public class RandomApple implements AppleFactory {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getNextApple'");
     }
-    
 }

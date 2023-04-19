@@ -7,7 +7,7 @@ import java.awt.event.KeyListener;
 import java.util.Timer;
 
 import no.uib.inf101.sem2.snake.midi.Song;
-import no.uib.inf101.sem2.snake.model.SnakeModel.GameScreen;
+import no.uib.inf101.sem2.snake.model.GameStates;
 import no.uib.inf101.sem2.snake.view.SnakeView;
 
 /**
@@ -44,18 +44,18 @@ public class SnakeController implements KeyListener, ActionListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (controller.getGameScreen() == GameScreen.START_GAME) {
+        if (controller.getGameScreen() == GameStates.START_GAME) {
             if (e.getKeyCode() == KeyEvent.VK_UP ||
                 e.getKeyCode() == KeyEvent.VK_DOWN ||
                 e.getKeyCode() == KeyEvent.VK_LEFT ||
                 e.getKeyCode() == KeyEvent.VK_RIGHT) {
                 song.run();
-                controller.setGameScreen(GameScreen.ACTIVE_GAME);
+                controller.setGameScreen(GameStates.ACTIVE_GAME);
                 viewer.repaint();
             }
         }
 
-        if (controller.getGameScreen() == GameScreen.ACTIVE_GAME) {
+        if (controller.getGameScreen() == GameStates.ACTIVE_GAME) {
             if (e.getKeyCode() == KeyEvent.VK_UP) {
                 controller.moveSnake(-1, 0);
                 viewer.repaint();

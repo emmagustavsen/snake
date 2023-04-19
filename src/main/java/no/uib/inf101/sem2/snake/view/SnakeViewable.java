@@ -3,7 +3,7 @@ package no.uib.inf101.sem2.snake.view;
 import no.uib.inf101.sem2.grid.Coordinate;
 import no.uib.inf101.sem2.grid.CoordinateItem;
 import no.uib.inf101.sem2.snake.model.Tile;
-import no.uib.inf101.sem2.snake.model.SnakeModel.GameScreen;
+import no.uib.inf101.sem2.snake.model.GameStates;
 
 /**
  * SnakeViewable consists of the methods necessary for viewing.
@@ -49,7 +49,7 @@ public interface SnakeViewable {
      /**
       * @return state of GameScreen (default is ACTIVE)
       */
-     public GameScreen getGameScreen();
+     public GameStates getGameScreen();
 
      /**
       * Get score once a full row has been removed.

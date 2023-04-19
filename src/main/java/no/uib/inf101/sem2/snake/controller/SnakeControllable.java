@@ -1,6 +1,6 @@
 package no.uib.inf101.sem2.snake.controller;
 
-import no.uib.inf101.sem2.snake.model.SnakeModel.GameScreen;
+import no.uib.inf101.sem2.snake.model.GameStates;
 
 public interface SnakeControllable {
 
@@ -8,13 +8,13 @@ public interface SnakeControllable {
      * Get the game screen.
      * @return object of type GameScreen
      */
-    public GameScreen getGameScreen();
+    public GameStates getGameScreen();
 
     /**
      * Set the game screen.
      * @param gameScreen
      */
-    public void setGameScreen(GameScreen gameScreen);
+    public void setGameScreen(GameStates gameScreen);
 
     /**
      * Move snake

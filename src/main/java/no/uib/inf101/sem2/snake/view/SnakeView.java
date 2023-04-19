@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 
 import no.uib.inf101.sem2.grid.CoordinateItem;
 import no.uib.inf101.sem2.snake.model.Tile;
-import no.uib.inf101.sem2.snake.model.SnakeModel.GameScreen;
+import no.uib.inf101.sem2.snake.model.GameStates;
 
 /**
  * 
@@ -44,7 +44,7 @@ public class SnakeView extends JComponent {
         drawBoard(canvas, padding, padding, this.getWidth() -2 * padding, this.getHeight() -2 * padding, padding/16);
 
         // Start screen
-        if (view.getGameScreen() == GameScreen.START_GAME) {
+        if (view.getGameScreen() == GameStates.START_GAME) {
             canvas.setColor(transparentgray);
             canvas.fillRect(padding, padding, this.getWidth() - 2 * padding, this.getHeight() - 2 * padding);
 
