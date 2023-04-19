@@ -45,7 +45,7 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
                     this.board.set(new Coordinate(row, col), new Tile(lightBoard, '-'));
                 }
                 else {
-                    this.board.set(new Coordinate(row, col), new Tile(darkBoard, '-'));
+                    this.board.set(new Coordinate(row, col), new Tile(darkBoard, '+'));
                 }
             }
         }

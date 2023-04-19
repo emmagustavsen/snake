@@ -51,14 +51,11 @@ public class SnakeView extends JComponent {
             Font str = new Font("Monospaced", Font.BOLD, 40);
             canvas.setFont(str);
             GraphicHelperMethods.drawCenteredString(
-                canvas, "Press any arrow",
+                canvas, "Press ENTER",
                 20, 75, this.getWidth() - 40, this.getHeight() - 540);
             GraphicHelperMethods.drawCenteredString(
-                canvas, "⬅ ⬆ ⬇ ⮕",
-                20, 125, this.getWidth() - 40, this.getHeight() - 540);
-            GraphicHelperMethods.drawCenteredString(
                 canvas, "to begin!",
-                20, 175, this.getWidth() - 40, this.getHeight() - 540);
+                20, 125, this.getWidth() - 40, this.getHeight() - 540);
         }
 
         // Pause screen

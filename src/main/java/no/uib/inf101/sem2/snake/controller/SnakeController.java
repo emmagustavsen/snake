@@ -45,10 +45,7 @@ public class SnakeController implements KeyListener, ActionListener {
     @Override
     public void keyPressed(KeyEvent e) {
         if (controller.getGameScreen() == GameStates.START_GAME) {
-            if (e.getKeyCode() == KeyEvent.VK_UP ||
-                e.getKeyCode() == KeyEvent.VK_DOWN ||
-                e.getKeyCode() == KeyEvent.VK_LEFT ||
-                e.getKeyCode() == KeyEvent.VK_RIGHT) {
+            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                 song.run();
                 controller.setGameScreen(GameStates.ACTIVE_GAME);
                 viewer.repaint();
