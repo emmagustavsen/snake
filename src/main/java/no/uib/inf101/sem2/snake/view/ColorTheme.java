@@ -9,6 +9,13 @@ import java.awt.Color;
  */
 public class ColorTheme {
 
+    // Color for the overlapping screen (when the game is not started yet, paused, or over)
+    Color transparentgray = new Color(0, 0, 0, 128);
+
+    // Font colors
+    Color menuFont = new Color(58, 90, 64);
+    Color screenFont = new Color(227, 213, 202);
+
     // Colors for the board (tiled background with alternating colors, like a chess board)
     Color lightBoard = new Color(61, 61, 61);
     Color darkBoard = new Color(49, 49, 49);
