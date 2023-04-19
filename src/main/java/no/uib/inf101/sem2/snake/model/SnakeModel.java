@@ -37,6 +37,7 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
      * 
      */
     public SnakeModel() {
+        // flytte dette til view?
         for (int row = 0; row < 15; row++) {
             for (int col = 0; col < 15; col++) {
     
