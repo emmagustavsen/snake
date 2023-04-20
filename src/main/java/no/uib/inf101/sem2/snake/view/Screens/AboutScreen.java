@@ -58,7 +58,9 @@ public class AboutScreen extends JFrame implements ActionListener {
 		frame.add(contentPane);
 		frame.setPreferredSize(new Dimension(400, 400));
 		frame.pack();
-	}
+        frame.setLocationRelativeTo(null);
+
+    }
 
     /**
 	 * Helper method that creates the back button.

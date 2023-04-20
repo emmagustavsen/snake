@@ -183,6 +183,7 @@ public class SnakeView extends JComponent {
         panel.add(score);
     
         frame.pack();
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         return frame;
     }
