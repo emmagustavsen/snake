@@ -67,6 +67,7 @@ public class MainMenu extends JFrame implements ActionListener {
 		frame.add(contentPane);
 		frame.setPreferredSize(new Dimension(400, 400));
 		frame.pack();
+		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
 

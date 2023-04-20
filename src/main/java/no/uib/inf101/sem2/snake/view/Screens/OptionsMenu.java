@@ -127,7 +127,8 @@ public class OptionsMenu extends JFrame implements ActionListener {
 		// frame.add(contentPane);
 		frame.setPreferredSize(new Dimension(400, 400));
 		frame.pack();
-		frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
 	}
 
     /**
