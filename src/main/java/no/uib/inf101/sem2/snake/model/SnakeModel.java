@@ -1,12 +1,12 @@
 package no.uib.inf101.sem2.snake.model;
 
-import java.awt.Color;
 import java.util.Random;
 
 import no.uib.inf101.sem2.grid.Coordinate;
 import no.uib.inf101.sem2.grid.CoordinateItem;
 import no.uib.inf101.sem2.snake.controller.SnakeControllable;
 import no.uib.inf101.sem2.snake.model.snake.Snake;
+import no.uib.inf101.sem2.snake.view.ColorTheme;
 import no.uib.inf101.sem2.snake.view.SnakeViewable;
 
 /**
@@ -18,18 +18,13 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
 
     public GameStates gameScreen = GameStates.START_GAME;
     public Random random = new Random();
+    public ColorTheme theme = new ColorTheme();
 
     public int rows = 15;
     public int cols = 15;
     public int score = 0;
 
-    // custom colors
-    Color lightBoard = new Color(61, 61, 61);
-    Color darkBoard = new Color(49, 49, 49);
-    Color snakeColor = new Color(113, 131, 85);
-    Color appleColor = new Color(188, 71, 73);
-
-    public final Board board = new Board(rows, cols, new Tile(lightBoard, '-'));
+    public final Board board = new Board(rows, cols, new Tile(theme.lightBoard, '-'));
     public final Snake snake = new Snake(new Coordinate(random.nextInt(15), random.nextInt(15)), 3);
     
      /**
@@ -42,10 +37,10 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
             for (int col = 0; col < 15; col++) {
     
                 if ((row + col) % 2 == 0) {
-                    this.board.set(new Coordinate(row, col), new Tile(lightBoard, '-'));
+                    this.board.set(new Coordinate(row, col), new Tile(theme.lightBoard, '-'));
                 }
                 else {
-                    this.board.set(new Coordinate(row, col), new Tile(darkBoard, '+'));
+                    this.board.set(new Coordinate(row, col), new Tile(theme.darkBoard, '+'));
                 }
             }
         }
@@ -62,10 +57,10 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
             score += 1;
         }
         else {
-            board.set(snake.getTail(), (new Tile(snakeColor, 'T')));
+            board.set(snake.getTail(), (new Tile(theme.snakeColor, 'T')));
         }
         snake.moveSnake(position, board);
-        board.set(snake.getPosition(), (new Tile(snakeColor, 'S')));
+        board.set(snake.getPosition(), (new Tile(theme.snakeColor, 'S')));
         return true;
     }
 

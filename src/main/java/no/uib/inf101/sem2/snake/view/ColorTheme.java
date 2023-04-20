@@ -10,29 +10,29 @@ import java.awt.Color;
 public class ColorTheme {
 
     // Color for the overlapping screen (when the game is not started yet, paused, or over)
-    Color transparentgray = new Color(0, 0, 0, 128);
+    public Color transparentgray = new Color(0, 0, 0, 128);
 
     // Font colors
-    Color menuFont = new Color(58, 90, 64);
-    Color screenFont = new Color(227, 213, 202);
+    public Color menuFont = new Color(58, 90, 64);
+    public Color screenFont = new Color(227, 213, 202);
 
     // Colors for the board (tiled background with alternating colors, like a chess board)
-    Color lightBoard = new Color(61, 61, 61);
-    Color darkBoard = new Color(49, 49, 49);
+    public Color lightBoard = new Color(61, 61, 61);
+    public Color darkBoard = new Color(49, 49, 49);
 
     // Default color for the snake and apple
-    Color snakeColor = new Color(113, 131, 85);
-    Color appleColor = new Color(188, 71, 73);
+    public Color snakeColor = new Color(113, 131, 85);
+    public Color appleColor = new Color(188, 71, 73);
 
     // Custom colors for the snake
-    Color pinkSnake = new Color(240, 128, 128);
-    Color purpleSnake = new Color(94, 84, 142);
-    Color blueSnake = new Color(127, 200, 248);
+    public Color pinkSnake = new Color(240, 128, 128);
+    public Color purpleSnake = new Color(94, 84, 142);
+    public Color blueSnake = new Color(127, 200, 248);
 
     // Custom colors for the fruit
-    Color banana = new Color(255, 228, 94);
-    Color orange = new Color(255, 214, 112);
-    Color strawberry = new Color(201, 24, 74);
+    public Color banana = new Color(255, 228, 94);
+    public Color orange = new Color(255, 214, 112);
+    public Color strawberry = new Color(201, 24, 74);
 
     // Usikker på om vi skal ha getters eller setters (eller bare setters) for fargene på brettet,
     // ettersom de ikke skal endres...
