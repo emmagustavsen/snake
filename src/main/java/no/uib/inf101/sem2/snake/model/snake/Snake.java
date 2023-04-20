@@ -33,6 +33,8 @@ public class Snake implements Iterable<CoordinateItem<Character>>{
         }
     }
 
+
+
     public int getLength() {
         return body.size();
     } 
