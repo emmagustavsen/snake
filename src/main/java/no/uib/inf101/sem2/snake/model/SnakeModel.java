@@ -5,6 +5,7 @@ import java.util.Random;
 import no.uib.inf101.sem2.grid.Coordinate;
 import no.uib.inf101.sem2.grid.CoordinateItem;
 import no.uib.inf101.sem2.snake.controller.SnakeControllable;
+import no.uib.inf101.sem2.snake.model.apple.Apple;
 import no.uib.inf101.sem2.snake.model.snake.Snake;
 import no.uib.inf101.sem2.snake.view.ColorTheme;
 import no.uib.inf101.sem2.snake.view.SnakeViewable;
@@ -25,25 +26,17 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
     public int score = 0;
 
     public final Board board = new Board(rows, cols, new Tile(theme.lightBoard, '-'));
-    public final Snake snake = new Snake(new Coordinate(random.nextInt(15), random.nextInt(15)), 3);
+    public final Snake snake = new Snake(new Coordinate(10, 10), 3);
+    public final Apple apple = new Apple('A', new Coordinate(random.nextInt(15), random.nextInt(15)));
     
      /**
      * Class constructor.
      * 
      */
     public SnakeModel() {
-        // flytte dette til view?
-        for (int row = 0; row < 15; row++) {
-            for (int col = 0; col < 15; col++) {
-    
-                if ((row + col) % 2 == 0) {
-                    this.board.set(new Coordinate(row, col), new Tile(theme.lightBoard, '-'));
-                }
-                else {
-                    this.board.set(new Coordinate(row, col), new Tile(theme.darkBoard, '+'));
-                }
-            }
-        }
+        // Set the snake and apple on the board
+        board.set(snake.getPosition(), (new Tile(theme.snakeColor, 'S')));
+        board.set(apple.position, (new Tile(theme.appleColor, 'A')));
     }
 
     public boolean move(Coordinate position) {

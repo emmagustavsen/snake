@@ -40,7 +40,7 @@ public class SnakeView extends JComponent {
     @Override
     public void paint(Graphics canvas) {
         super.paint(canvas);
-        drawBoard(canvas, padding, padding, this.getWidth() -2 * padding, this.getHeight() -2 * padding, padding/16);
+        drawBoard(canvas, padding, padding, this.getWidth() - 2 * padding, this.getHeight() -2 * padding, padding/15);
 
         // Start screen
         if (view.getGameScreen() == GameStates.START_GAME) {
@@ -93,7 +93,7 @@ public class SnakeView extends JComponent {
     public void drawBoardWithRightBottomPadding(Graphics canvas, int xBoard, int yBoard, int boardWidth, int boardHeight, int padding, Iterable<CoordinateItem<Tile>> tilesToPaint) {
 
         for (CoordinateItem<Tile> coordinateItem : tilesToPaint) {
-            Color color = Color.BLACK;
+            Color color = theme.darkBoard;
             int row = coordinateItem.coordinate.row;
             int col = coordinateItem.coordinate.col;
             Tile tile = coordinateItem.item;
