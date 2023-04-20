@@ -23,6 +23,24 @@ public class Coordinate {
         this.col = col;
     }
 
+    /**
+     * Getter-method for the row.
+     * 
+     * @return the row
+     */
+    public int getRow() {
+        return row;
+    }
+
+    /**
+     * Getter-method for the column.
+     * 
+     * @return the column
+     */
+    public int getCol() {
+        return col;
+    }
+
     @Override
     public String toString() {
         return "{" +
