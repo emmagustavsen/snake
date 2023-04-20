@@ -21,12 +21,16 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
     public Random random = new Random();
     public ColorTheme theme = new ColorTheme();
 
+
+
+
+
     public int rows = 15;
     public int cols = 15;
     public int score = 0;
 
-    public final Board board = new Board(rows, cols, new Tile(theme.lightBoard, '-'));
-    public final Snake snake = new Snake(new Coordinate(10, 10), 3);
+    public Board board = new Board(rows, cols, new Tile(theme.lightBoard, '-'));
+    public Snake snake = new Snake(new Coordinate(10, 10), 3);
     public final Apple apple = new Apple('A', new Coordinate(random.nextInt(15), random.nextInt(15)));
     
      /**
@@ -34,10 +38,12 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
      * 
      */
     public SnakeModel() {
+
         // Set the snake and apple on the board
         board.set(snake.getPosition(), (new Tile(theme.snakeColor, 'S')));
         board.set(apple.position, (new Tile(theme.appleColor, 'A')));
     }
+
 
     public boolean move(Coordinate position) {
         if (!isLegalMove(position)) {
