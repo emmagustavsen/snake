@@ -1,6 +1,6 @@
 package no.uib.inf101.sem2.snake.model.apple;
 
-import no.uib.inf101.sem2.grid.Coordinate;
+import no.uib.inf101.sem2.grid.CellPosition;
 
 /**
  * Class representing the apple (or other fruit) that the snake eats.
@@ -12,21 +12,21 @@ import no.uib.inf101.sem2.grid.Coordinate;
 public class Apple {
 
     public final char character;
-    public final Coordinate position;
+    public final CellPosition position;
 
     /**
      * Class constructor.
      * Constructs a new Apple, defined by a character and a coordinate.
      * 
      * @param character
-     * @param coordinate
+     * @param position
      */
-    public Apple(char character, Coordinate coordinate) {
+    public Apple(char character, CellPosition position) {
         this.character = character;
-        this.position = coordinate;
+        this.position = position;
     }
 
-    public Coordinate getApplePosition() {
+    public CellPosition getApplePosition() {
         return position;
     }
 }

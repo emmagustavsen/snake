@@ -4,12 +4,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.Timer;
+import javax.swing.Timer;
 
-import no.uib.inf101.sem2.grid.Coordinate;
 import no.uib.inf101.sem2.snake.midi.Song;
-import no.uib.inf101.sem2.snake.model.GameStates;
-import no.uib.inf101.sem2.snake.model.SnakeModel;
+import no.uib.inf101.sem2.snake.model.Direction;
+import no.uib.inf101.sem2.snake.model.GameState;
 import no.uib.inf101.sem2.snake.model.snake.Snake;
 import no.uib.inf101.sem2.snake.view.SnakeView;
 
@@ -19,7 +18,6 @@ import no.uib.inf101.sem2.snake.view.SnakeView;
  * @author Jasmine Næss - jasmine.ness@student.uib.no
  */
 public class SnakeController implements KeyListener, ActionListener {
-    SnakeModel model;
     SnakeControllable controllable;
     SnakeView viewer;
 
@@ -33,50 +31,53 @@ public class SnakeController implements KeyListener, ActionListener {
      * @param controllable
      * @param viewer
      */
-    public SnakeController(SnakeControllable controllable, SnakeView viewer) {
-        this.controllable = controllable;
+    public SnakeController(SnakeControllable model, SnakeView viewer) {
+        // this.model = model;
         this.viewer = viewer;
+        this.controllable = model;
         viewer.addKeyListener(this);
         this.song = new Song();
+        this.timer = new Timer(model.getDelay(), this::clockTick);
+        timer.start();
     }
 
-    // // se på implementasjonen av denne (brukes i screens)
-    // public SnakeController(SnakeModel model, SnakeView view) {}
-
+    private void clockTick(ActionEvent action) {
+        this.controllable.clockTick();
+        viewer.repaint();
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {}
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (controllable.getGameScreen() == GameStates.START_GAME) {
+        if (controllable.getGameScreen() == GameState.START_GAME) {
             if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                 song.run();
-                controllable.setGameScreen(GameStates.ACTIVE_GAME);
+                controllable.setGameScreen(GameState.ACTIVE_GAME);
                 viewer.repaint();
             }
         }
 
-        if (controllable.getGameScreen() == GameStates.ACTIVE_GAME) {
+        if (controllable.getGameScreen() == GameState.ACTIVE_GAME) {
             if (e.getKeyCode() == KeyEvent.VK_UP) {
-                controllable.moveSnake(-1, 0);
+                controllable.setDirection(Direction.UP);
                 viewer.repaint();
-
             }
             else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-                controllable.moveSnake(1, 0);
+                controllable.setDirection(Direction.DOWN);
                 viewer.repaint();
             }
             else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-                controllable.moveSnake(0, -1);
+                controllable.setDirection(Direction.LEFT);
                 viewer.repaint();
             }
             else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-                controllable.moveSnake(0, 1);
+                controllable.setDirection(Direction.RIGHT);
                 viewer.repaint();
             }
             else if (e.getKeyCode() == KeyEvent.VK_Q) {
-                controllable.exit();
+                // exit game -- ADD
                 viewer.repaint();
             }
         }
@@ -87,12 +88,5 @@ public class SnakeController implements KeyListener, ActionListener {
 
     @Override
     public void keyTyped(KeyEvent e) {}
-
-    public boolean snakeIsMoving (int x, int y) {
-        Snake snake = model.getSnake();
-        Coordinate newPos = new Coordinate(snake.getPosition().getRow() + x, snake.getPosition().col + y);
-        return model.move(newPos);
-    }
-
 
 }
