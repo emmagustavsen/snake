@@ -162,6 +162,12 @@ public class SnakeView extends JComponent {
         GraphicHelperMethods.drawCenteredString(
             graphics, "to continue!",
             20, 125, this.getWidth() - 40, this.getHeight() - 540);
+
+        Font scoreFont = new Font("Monospaced", Font.PLAIN, 20);
+        graphics.setFont(scoreFont);
+        GraphicHelperMethods.drawCenteredString(
+            graphics, "Your current score is " + model.getScore() + "",
+            20, 175, this.getWidth() - 40, this.getHeight() - 540);
     }
 
     /**
@@ -185,14 +191,17 @@ public class SnakeView extends JComponent {
             graphics, "GAME OVER!",
             20, 75, this.getWidth() - 40, this.getHeight() - 540);
         GraphicHelperMethods.drawCenteredString(
-            graphics, "Your score: " + model.getScore(),
+            graphics, "Your final score is " + model.getScore(),
             20, 125, this.getWidth() - 40, this.getHeight() - 540);
+        
+        Font optionFont = new Font("Monospaced", Font.PLAIN, 20);
+        graphics.setFont(optionFont);
         GraphicHelperMethods.drawCenteredString(
             graphics, "Press [R] to restart,",
             20, 200, this.getWidth() - 40, this.getHeight() - 540);
         GraphicHelperMethods.drawCenteredString(
             graphics, "or [Q] to quit.",
-            20, 250, this.getWidth() - 40, this.getHeight() - 540);
+            20, 225, this.getWidth() - 40, this.getHeight() - 540);
     }
     
     @Override
