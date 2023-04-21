@@ -11,7 +11,6 @@ import no.uib.inf101.sem2.snake.model.Direction;
 import no.uib.inf101.sem2.snake.model.GameState;
 import no.uib.inf101.sem2.snake.model.snake.Snake;
 import no.uib.inf101.sem2.snake.view.SnakeView;
-import no.uib.inf101.sem2.snake.model.SnakeModel;
 
 /**
  * Controller for Snake, tracking the keys pressed by the user. Implements KeyListener and ActionListener.
@@ -51,11 +50,7 @@ public class SnakeController implements KeyListener, ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == timer) {
-            viewer.updateScoreLabel();
-        }
-    }
+    public void actionPerformed(ActionEvent e) {}
 
     @Override
     public void keyPressed(KeyEvent e) {

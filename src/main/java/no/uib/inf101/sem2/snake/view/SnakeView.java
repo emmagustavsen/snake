@@ -3,7 +3,6 @@ package no.uib.inf101.sem2.snake.view;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -28,6 +27,7 @@ import no.uib.inf101.sem2.snake.model.GameState;
 public class SnakeView extends JComponent {
 
     private static final int padding = 10;
+    private static final int bottomPadding = 30;
     private ColorTheme theme;
     private SnakeViewable model;
 
@@ -95,7 +95,7 @@ public class SnakeView extends JComponent {
      */
     private void drawGame(Graphics2D graphics) {
         double width = this.getWidth() - 2 * padding;
-        double height = this.getHeight() - 2 * padding;
+        double height = this.getHeight() - 2 * bottomPadding;
         Rectangle2D frameRectangle = new Rectangle2D.Double(padding, padding, width, height);
         graphics.fill(frameRectangle);
         CellPositionToPixelConverter cellConverter = new CellPositionToPixelConverter(frameRectangle,
@@ -103,6 +103,13 @@ public class SnakeView extends JComponent {
                 0);
         drawCells(graphics, model.getTilesOnBoard(), cellConverter, theme);
         drawCells(graphics, model.movingSnakeTiles(), cellConverter, theme);
+        // draw score on bottom:
+        graphics.setColor(theme.menuFont);
+        Font str = new Font("Monospaced", Font.BOLD, 30);
+        graphics.setFont(str);
+        GraphicHelperMethods.drawCenteredString(
+            graphics, "SCORE: " + model.getScore(),
+            20, 0, this.getWidth() - 40, this.getHeight() + 680);
     }
 
     /**
@@ -115,7 +122,7 @@ public class SnakeView extends JComponent {
      */
     private void drawStartScreen(Graphics2D graphics) {
         double width = this.getWidth() - 2 * padding;
-        double height = this.getHeight() - 2 * padding;
+        double height = this.getHeight() - 2 * bottomPadding;
         Rectangle2D frameRectangle = new Rectangle2D.Double(padding, padding, width, height);
 
         graphics.setColor(theme.transparentgray);
@@ -140,7 +147,7 @@ public class SnakeView extends JComponent {
      */
     private void drawPauseScreen(Graphics2D graphics) {
         double width = this.getWidth() - 2 * padding;
-        double height = this.getHeight() - 2 * padding;
+        double height = this.getHeight() - 2 * bottomPadding;
         Rectangle2D frameRectangle = new Rectangle2D.Double(padding, padding, width, height);
 
         graphics.setColor(theme.transparentgray);
@@ -155,6 +162,12 @@ public class SnakeView extends JComponent {
         GraphicHelperMethods.drawCenteredString(
             graphics, "to continue!",
             20, 125, this.getWidth() - 40, this.getHeight() - 540);
+
+        Font scoreFont = new Font("Monospaced", Font.PLAIN, 20);
+        graphics.setFont(scoreFont);
+        GraphicHelperMethods.drawCenteredString(
+            graphics, "Your current score is " + model.getScore() + "",
+            20, 175, this.getWidth() - 40, this.getHeight() - 540);
     }
 
     /**
@@ -165,7 +178,7 @@ public class SnakeView extends JComponent {
      */
     private void drawGameOverScreen(Graphics2D graphics) {
         double width = this.getWidth() - 2 * padding;
-        double height = this.getHeight() - 2 * padding;
+        double height = this.getHeight() - 2 * bottomPadding;
         Rectangle2D frameRectangle = new Rectangle2D.Double(padding, padding, width, height);
 
         graphics.setColor(theme.transparentgray);
@@ -178,20 +191,23 @@ public class SnakeView extends JComponent {
             graphics, "GAME OVER!",
             20, 75, this.getWidth() - 40, this.getHeight() - 540);
         GraphicHelperMethods.drawCenteredString(
-            graphics, "Your score: " + model.getScore(),
+            graphics, "Your final score is " + model.getScore(),
             20, 125, this.getWidth() - 40, this.getHeight() - 540);
+        
+        Font optionFont = new Font("Monospaced", Font.PLAIN, 20);
+        graphics.setFont(optionFont);
         GraphicHelperMethods.drawCenteredString(
             graphics, "Press [R] to restart,",
             20, 200, this.getWidth() - 40, this.getHeight() - 540);
         GraphicHelperMethods.drawCenteredString(
             graphics, "or [Q] to quit.",
-            20, 250, this.getWidth() - 40, this.getHeight() - 540);
+            20, 225, this.getWidth() - 40, this.getHeight() - 540);
     }
     
     @Override
     public Dimension getPreferredSize() {
         int width = 700;
-        int height = 700;
+        int height = 730;
         return new Dimension(width, height);
     }
 
@@ -226,31 +242,18 @@ public class SnakeView extends JComponent {
         + "quit: [Q] </html>");
         keys.setFont(new Font("Monospaced", Font.PLAIN, 18));
         keys.setForeground(theme.menuFont);
-        keys.setBorder(BorderFactory.createEmptyBorder(80, 0, 40, 15));
+        keys.setBorder(BorderFactory.createEmptyBorder(150, 0, 40, 15));
 
         ImageIcon imageIcon = new ImageIcon(GraphicHelperMethods.loadImageFromResources("/snake.png"));
 		JLabel imageLabel = new JLabel(imageIcon);
 
-        JLabel score = new JLabel("SCORE: " + this.model.getScore());
-  
-        score.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, 15)); 
-        score.setFont(new Font("Monospaced", Font.BOLD, 30));
-        score.setForeground(theme.menuFont);
-
         panel.add(keys);
         panel.add(imageLabel);
-        panel.add(score);
     
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         return frame;
     }
-
-    public void updateScoreLabel() {
-        JLabel score = new JLabel("SCORE: " + this.model.getScore());
-        score.setText("SCORE: " + this.model.getScore());
-    }
     
-
 }
