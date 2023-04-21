@@ -13,5 +13,10 @@ public record GridCell<E>(CellPosition pos, E value) {
 
     public int getColumn() {
         return 0;
-    }}
+    }
+
+    public String getValue() {
+        return null;
+    }
+}
 
