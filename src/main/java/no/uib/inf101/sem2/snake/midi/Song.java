@@ -24,6 +24,10 @@ public class Song implements Runnable {
         this.doPlayMidi(song, true);
     }
 
+    public boolean songIsPlaying() {
+        return this.sequencer != null && this.sequencer.isRunning();
+    }
+
     private void doPlayMidi(final InputStream is, final boolean loop) {
         try {
             this.doStopMidiSounds();

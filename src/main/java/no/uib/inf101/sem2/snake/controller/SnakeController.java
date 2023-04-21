@@ -96,6 +96,15 @@ public class SnakeController implements KeyListener, ActionListener {
                 controllable.restart();
                 viewer.repaint();
             }
+            else if (e.getKeyCode() == KeyEvent.VK_M){
+                if(song.songIsPlaying()){
+                    song.doPauseMidiSounds();
+                }
+                else{
+                    song.doUnpauseMidiSounds();
+                }
+                viewer.repaint();
+            }
         }
         if (controllable.getGameScreen() == GameState.PAUSE){
             if (e.getKeyCode() == KeyEvent.VK_ENTER){
