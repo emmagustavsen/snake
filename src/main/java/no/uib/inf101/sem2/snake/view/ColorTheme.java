@@ -40,7 +40,7 @@ public class ColorTheme {
         Color color = switch (symbol) {
             case 'H' -> snakeColor;
             case 'S' -> snakeColor;
-            case 'A' -> appleColor;
+            case 'A' -> boardColor;
             case '-' -> boardColor;
             default -> throw new IllegalArgumentException(
                 "No available color for '" + symbol + "'");

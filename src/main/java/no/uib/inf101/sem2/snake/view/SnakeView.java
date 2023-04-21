@@ -3,6 +3,7 @@ package no.uib.inf101.sem2.snake.view;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -68,12 +69,18 @@ public class SnakeView extends JComponent {
      * @param getColors
      */
     private static void drawCells(Graphics2D canvas, Iterable<GridCell<Character>> cells,
-            CellPositionToPixelConverter converter, ColorTheme getColors) {        
+            CellPositionToPixelConverter converter, ColorTheme getColors) {  
+            ImageIcon imageIcon = new ImageIcon(GraphicHelperMethods.loadImageFromResources("/apple.png"));
         for (GridCell<Character> gridChar : cells) {
             Rectangle2D tile = converter.getBoundsForCell(gridChar.pos());
             Color theme = getColors.getCellColor(gridChar.value());
             canvas.setColor(theme);
             canvas.fill(tile);
+
+            if(gridChar.value() == 'A') {
+                canvas.drawImage(imageIcon.getImage(), (int)tile.getX(), (int)tile.getY(), (int)tile.getWidth(), (int)tile.getHeight(), null);
+            }
+
         }
     }
 
@@ -220,7 +227,6 @@ public class SnakeView extends JComponent {
 		JLabel imageLabel = new JLabel(imageIcon);
 
         JLabel score = new JLabel("SCORE: " + this.model.getScore());
-        score.repaint();
   
         score.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, 15)); 
         score.setFont(new Font("Monospaced", Font.BOLD, 30));
@@ -235,5 +241,11 @@ public class SnakeView extends JComponent {
         frame.setVisible(true);
         return frame;
     }
+
+    public void updateScoreLabel() {
+        JLabel score = new JLabel("SCORE: " + this.model.getScore());
+        score.setText("SCORE: " + this.model.getScore());
+    }
+    
 
 }
