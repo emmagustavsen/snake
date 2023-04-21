@@ -26,8 +26,7 @@ public class SnakeController implements KeyListener, ActionListener {
     Timer timer;
     Song song;
 
-    SnakeModel snakeModel;
-    
+
     /**
      * Class constructor.
      * 
@@ -44,6 +43,9 @@ public class SnakeController implements KeyListener, ActionListener {
         timer.start();
     }
 
+    /**
+     * @param action
+     */
     private void clockTick(ActionEvent action) {
         this.controllable.clockTick();
         viewer.repaint();
@@ -84,6 +86,7 @@ public class SnakeController implements KeyListener, ActionListener {
             }
             else if (e.getKeyCode() == KeyEvent.VK_P) {
                 controllable.setGameScreen(GameState.PAUSE);
+                song.doPauseMidiSounds();
                 viewer.repaint();
             }
             else if (e.getKeyCode() == KeyEvent.VK_R){
@@ -93,14 +96,18 @@ public class SnakeController implements KeyListener, ActionListener {
         }
         if (controllable.getGameScreen() == GameState.PAUSE){
             if (e.getKeyCode() == KeyEvent.VK_ENTER){
+                song.doUnpauseMidiSounds();
                 controllable.setGameScreen(GameState.ACTIVE_GAME);
                 viewer.repaint();
+
             }
         }
         if (controllable.getGameScreen() == GameState.GAME_OVER) {
             if (e.getKeyCode() == KeyEvent.VK_R) {
                 controllable.restart();
+                song.run();
                 viewer.repaint();
+
             }
             else if (e.getKeyCode() == KeyEvent.VK_Q) {
                 System.exit(0);
