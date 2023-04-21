@@ -43,6 +43,6 @@ public class RandomApple implements AppleFactory {
 
     @Override
     public Apple getNextApple(Snake snake) {
-       
+       return null;
     }
 }

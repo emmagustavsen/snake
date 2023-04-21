@@ -19,4 +19,10 @@ public class Board extends Grid<Character> {
         }
     }
 
+
+    public void clearBoard() {
+        for (GridCell<Character> snakeBoardTile : this) {
+            this.set(snakeBoardTile.pos(), '-');
+        }
+    }
 }

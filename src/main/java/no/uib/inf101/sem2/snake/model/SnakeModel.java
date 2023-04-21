@@ -175,8 +175,23 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
 
     @Override
     public void restart() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'restart'");
+        // Reset game variables to their initial values
+        score = 0;
+        snakeLength = 3;
+        direction = Direction.LEFT;
+        opposite = Direction.RIGHT;
+        canChangeDirection = true;
+        state = GameState.ACTIVE_GAME;
+        snakePosition.clear();
+        board.clearBoard();
+        // Create a new snake and spawn an apple
+        snake = new Snake(new CellPosition(7, 7));
+        spawnApple();
+        // Add the snake's initial position to the list of positions
+        snakePosition.add(snake.getSnake().pos());
+        // Update the board to reflect the snake's position
+        board.set(snake.getSnake().pos(), 'H');
+        updateSnake();
     }
 
     @Override

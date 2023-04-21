@@ -11,6 +11,7 @@ import no.uib.inf101.sem2.snake.model.Direction;
 import no.uib.inf101.sem2.snake.model.GameState;
 import no.uib.inf101.sem2.snake.model.snake.Snake;
 import no.uib.inf101.sem2.snake.view.SnakeView;
+import no.uib.inf101.sem2.snake.model.SnakeModel;
 
 /**
  * Controller for Snake, tracking the keys pressed by the user. Implements KeyListener and ActionListener.
@@ -24,11 +25,13 @@ public class SnakeController implements KeyListener, ActionListener {
     Snake snake;
     Timer timer;
     Song song;
+
+    SnakeModel snakeModel;
     
     /**
      * Class constructor.
      * 
-     * @param controllable
+     * @param model
      * @param viewer
      */
     public SnakeController(SnakeControllable model, SnakeView viewer) {
@@ -58,7 +61,6 @@ public class SnakeController implements KeyListener, ActionListener {
                 viewer.repaint();
             }
         }
-
         if (controllable.getGameScreen() == GameState.ACTIVE_GAME) {
             if (e.getKeyCode() == KeyEvent.VK_UP) {
                 controllable.setDirection(Direction.UP);
@@ -77,7 +79,31 @@ public class SnakeController implements KeyListener, ActionListener {
                 viewer.repaint();
             }
             else if (e.getKeyCode() == KeyEvent.VK_Q) {
-                // exit game -- ADD
+                System.exit(0);
+                viewer.repaint();
+            }
+            else if (e.getKeyCode() == KeyEvent.VK_P) {
+                controllable.setGameScreen(GameState.PAUSE);
+                viewer.repaint();
+            }
+            else if (e.getKeyCode() == KeyEvent.VK_R){
+                controllable.restart();
+                viewer.repaint();
+            }
+        }
+        if (controllable.getGameScreen() == GameState.PAUSE){
+            if (e.getKeyCode() == KeyEvent.VK_ENTER){
+                controllable.setGameScreen(GameState.ACTIVE_GAME);
+                viewer.repaint();
+            }
+        }
+        if (controllable.getGameScreen() == GameState.GAME_OVER) {
+            if (e.getKeyCode() == KeyEvent.VK_R) {
+                controllable.restart();
+                viewer.repaint();
+            }
+            else if (e.getKeyCode() == KeyEvent.VK_Q) {
+                System.exit(0);
                 viewer.repaint();
             }
         }
