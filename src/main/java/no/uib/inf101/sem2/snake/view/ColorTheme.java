@@ -33,14 +33,10 @@ public class ColorTheme {
     public Color orange = new Color(255, 214, 112);
     public Color strawberry = new Color(201, 24, 74);
 
-    // Usikker på om vi skal ha getters eller setters (eller bare setters) for fargene på brettet,
-    // ettersom de ikke skal endres...
-
     public Color getCellColor(char symbol) {
         Color color = switch (symbol) {
-            case 'H' -> snakeColor;
-            case 'S' -> snakeColor;
-            case 'A' -> appleColor;
+            case 'H' -> boardColor;
+            case 'A' -> boardColor;
             case '-' -> boardColor;
             default -> throw new IllegalArgumentException(
                 "No available color for '" + symbol + "'");

@@ -34,7 +34,6 @@ public class SnakeController implements KeyListener, ActionListener {
      * @param viewer
      */
     public SnakeController(SnakeControllable model, SnakeView viewer) {
-        // this.model = model;
         this.viewer = viewer;
         this.controllable = model;
         viewer.addKeyListener(this);
@@ -52,7 +51,11 @@ public class SnakeController implements KeyListener, ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {}
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == timer) {
+            viewer.updateScoreLabel();
+        }
+    }
 
     @Override
     public void keyPressed(KeyEvent e) {
