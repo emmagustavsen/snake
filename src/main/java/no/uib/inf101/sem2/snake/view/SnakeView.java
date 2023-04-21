@@ -170,11 +170,11 @@ public class SnakeView extends JComponent {
             graphics, "Your score: " + model.getScore(),
             20, 125, this.getWidth() - 40, this.getHeight() - 540);
         GraphicHelperMethods.drawCenteredString(
-            graphics, "Press ENTER to restart,",
-            20, 175, this.getWidth() - 40, this.getHeight() - 540);
+            graphics, "Press [R] to restart,",
+            20, 200, this.getWidth() - 40, this.getHeight() - 540);
         GraphicHelperMethods.drawCenteredString(
             graphics, "or [Q] to quit.",
-            20, 225, this.getWidth() - 40, this.getHeight() - 540);
+            20, 250, this.getWidth() - 40, this.getHeight() - 540);
     }
     
     @Override
@@ -219,7 +219,9 @@ public class SnakeView extends JComponent {
         ImageIcon imageIcon = new ImageIcon(GraphicHelperMethods.loadImageFromResources("/snake.png"));
 		JLabel imageLabel = new JLabel(imageIcon);
 
-        JLabel score = new JLabel("SCORE: " + model.getScore()); // + this.view.getScore());
+        JLabel score = new JLabel("SCORE: " + this.model.getScore());
+        score.repaint();
+  
         score.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, 15)); 
         score.setFont(new Font("Monospaced", Font.BOLD, 30));
         score.setForeground(theme.menuFont);
@@ -233,5 +235,5 @@ public class SnakeView extends JComponent {
         frame.setVisible(true);
         return frame;
     }
-    
+
 }

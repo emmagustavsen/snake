@@ -38,10 +38,11 @@ public class RandomApple implements AppleFactory {
         // make sure the apple doesn't spawn on the snake
         while (!snakePos.contains(randomCoord));
         return randomCoord;
+        
     }
 
     @Override
     public Apple getNextApple(Snake snake) {
-        
+       
     }
 }

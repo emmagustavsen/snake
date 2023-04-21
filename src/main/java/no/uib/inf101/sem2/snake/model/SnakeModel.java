@@ -34,11 +34,13 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
     // public final Apple apple;
     private GridCell<Character> apple;
 
-    // If the head goes in one direction, the added tile should go in the opposite direction
+    // If the snake is moving one direction, it cannot directly move in the opposit direction.
+    // Thus, we need to keep track of the opposite direction for a given direction.
     private Direction direction;
     private Direction opposite;
 
     private LinkedList<CellPosition> snakePosition = new LinkedList<>();
+
     
      /**
      * Class constructor.
@@ -87,7 +89,7 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
 
             if (legalPosition(snake)) {
                 this.snake = snake;
-                checkIfAppleEaten();
+                checkEaten();
             }
             else {
                 state = GameState.GAME_OVER;
@@ -113,7 +115,7 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
         board.set(applePosition, 'A');
     }
 
-    private void checkIfAppleEaten() {
+    private void checkEaten() {
         if (snake.getSnake().pos().equals(apple.pos())) {
             snakeLength++;
             score+= 10;
