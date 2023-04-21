@@ -220,6 +220,7 @@ public class SnakeView extends JComponent {
         + "move down: ⬇ " + "<br>"
         + "move left: ⬅ " + "<br>"
         + "move right: ⮕" + "<br>"
+        + "mute / unmute: [M]" + "<br>"
         + "pause: [P]" + "<br>"
         + "restart: [R]" + "<br>"
         + "quit: [Q] </html>");
