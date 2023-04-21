@@ -70,7 +70,8 @@ public class SnakeView extends JComponent {
      */
     private static void drawCells(Graphics2D canvas, Iterable<GridCell<Character>> cells,
             CellPositionToPixelConverter converter, ColorTheme getColors) {  
-            ImageIcon imageIcon = new ImageIcon(GraphicHelperMethods.loadImageFromResources("/apple.png"));
+            ImageIcon appleSymbol = new ImageIcon(GraphicHelperMethods.loadImageFromResources("/apple.png"));
+            ImageIcon snakeSymbol = new ImageIcon(GraphicHelperMethods.loadImageFromResources("/green-circle.png"));
         for (GridCell<Character> gridChar : cells) {
             Rectangle2D tile = converter.getBoundsForCell(gridChar.pos());
             Color theme = getColors.getCellColor(gridChar.value());
@@ -78,7 +79,10 @@ public class SnakeView extends JComponent {
             canvas.fill(tile);
 
             if(gridChar.value() == 'A') {
-                canvas.drawImage(imageIcon.getImage(), (int)tile.getX(), (int)tile.getY(), (int)tile.getWidth(), (int)tile.getHeight(), null);
+                canvas.drawImage(appleSymbol.getImage(), (int)tile.getX(), (int)tile.getY(), (int)tile.getWidth(), (int)tile.getHeight(), null);
+            }
+            if (gridChar.value() == 'H') {
+                canvas.drawImage(snakeSymbol.getImage(), (int)tile.getX(), (int)tile.getY(), (int)tile.getWidth(), (int)tile.getHeight(), null);
             }
 
         }
