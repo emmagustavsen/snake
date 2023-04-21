@@ -1,9 +1,8 @@
 package no.uib.inf101.sem2.snake.view;
 
-import no.uib.inf101.sem2.grid.Coordinate;
-import no.uib.inf101.sem2.grid.CoordinateItem;
-import no.uib.inf101.sem2.snake.model.Tile;
-import no.uib.inf101.sem2.snake.model.GameStates;
+import no.uib.inf101.sem2.grid.GridCell;
+import no.uib.inf101.sem2.grid.GridDimension;
+import no.uib.inf101.sem2.snake.model.GameState;
 
 /**
  * SnakeViewable consists of the methods necessary for viewing.
@@ -12,49 +11,41 @@ import no.uib.inf101.sem2.snake.model.GameStates;
  * @author Jasmine Næss - jasmine.ness@student.uib.no
  */
 public interface SnakeViewable {
-    
-     /**
-      * @return number of rows in grid
-      */
-     int getRows();
 
      /**
-      * @return number of columns in grid
+      * Getter for the game screen.
+
+      * @return the current game screen
       */
-     int getCols();
+     GameState getGameScreen();
 
      /**
-      * Iterates over the tiles on board.
-      *
-      * @return coordinates from tiles on board
-      */
-     Iterable<CoordinateItem<Tile>> iterableBoard();
+     * Returns GridDimension which gives us number of cols and number of rows
+     * 
+     * @return GridDimension
+     */
+    GridDimension getDimension();
+
+    /**
+     * Method that returns an object that, when iterated over, gives all positions
+     * on the board with same symbol.
+     * 
+     * @return Iterable<GridCell<Character>>
+     */
+    Iterable<GridCell<Character>> getTilesOnBoard();
+
+    /**
+     * Method that returns an object that, when iterated over, gives all positions
+     * of the falling tetromino.
+     * 
+     * @return Iterable<GridCell<Character>>
+     */
+    Iterable<GridCell<Character>> movingSnakeTiles();
 
      /**
-      * Set the color of each tile.
-      *
-      * @param tileCoordinate The position of the tile
-      * @param color
-      */
-     void set(Coordinate tileCoordinate, Tile color);
-
-     /**
-      * Get the coordinate for each tile.
-      *
-      * @param coord
-      * @return tile coordinate
-      */
-     Tile get(Coordinate coord);
-
-     /**
-      * @return state of GameScreen (default is ACTIVE)
-      */
-     public GameStates getGameScreen();
-
-     /**
-      * Get score once a full row has been removed.
+      * Get score once an apple is eaten.
       
-      * @return score
+      * @return the current score
       */
      public int getScore();
 

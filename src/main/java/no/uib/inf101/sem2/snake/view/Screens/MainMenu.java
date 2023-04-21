@@ -16,7 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import no.uib.inf101.sem2.grid.Coordinate;
+import no.uib.inf101.sem2.grid.CellPosition;
 import no.uib.inf101.sem2.snake.controller.SnakeControllable;
 import no.uib.inf101.sem2.snake.controller.SnakeController;
 import no.uib.inf101.sem2.snake.model.Board;
@@ -97,9 +97,9 @@ public class MainMenu extends JFrame implements ActionListener {
 		if (e.getSource() == play) {
 			frame.dispose(); // closes the current screen to avoid having multiple screens open at the same time
 
-			Snake snake = new Snake(new Coordinate(0,0), 3);
-
-			SnakeModel model = new SnakeModel();
+			Snake snake = new Snake(new CellPosition(10, 10));
+			Board board = new Board(15, 15);
+			SnakeModel model = new SnakeModel(board, snake);
             SnakeView view = new SnakeView(model);
 			SnakeController controller = new SnakeController(model, view);
             view.getFrame();

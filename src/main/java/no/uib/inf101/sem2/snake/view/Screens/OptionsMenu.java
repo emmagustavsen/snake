@@ -18,8 +18,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import no.uib.inf101.sem2.grid.CellPosition;
 import no.uib.inf101.sem2.snake.controller.SnakeController;
+import no.uib.inf101.sem2.snake.model.Board;
 import no.uib.inf101.sem2.snake.model.SnakeModel;
+import no.uib.inf101.sem2.snake.model.snake.Snake;
 import no.uib.inf101.sem2.snake.view.GraphicHelperMethods;
 import no.uib.inf101.sem2.snake.view.SnakeView;
 
@@ -159,8 +162,9 @@ public class OptionsMenu extends JFrame implements ActionListener {
         }
         if (e.getSource() == play) {
             frame.dispose();
-            
-            SnakeModel model = new SnakeModel();
+            Snake snake = new Snake(new CellPosition(10, 10));
+			Board board = new Board(15, 15);
+			SnakeModel model = new SnakeModel(board, snake);
             SnakeView view = new SnakeView(model);
             SnakeController controller = new SnakeController(model, view);
             view.getFrame();

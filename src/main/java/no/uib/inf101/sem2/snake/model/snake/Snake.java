@@ -3,85 +3,52 @@ package no.uib.inf101.sem2.snake.model.snake;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import no.uib.inf101.sem2.grid.Coordinate;
-import no.uib.inf101.sem2.grid.CoordinateItem;
-import no.uib.inf101.sem2.snake.model.Board;
+import no.uib.inf101.sem2.grid.CellPosition;
+import no.uib.inf101.sem2.grid.GridCell;
 
-/**
- * Class representing the snake.
- * Represented as a linked list for easily adding length to the snake.
- * 
- * @author Jasmine Næss
- */
-public class Snake implements Iterable<CoordinateItem<Character>>{
+public class Snake implements Iterable<GridCell<Character>> {
 
-    Coordinate position;
-    public final char symbol = 'S';
-    LinkedList<Coordinate> body = new LinkedList<>();
+    // The head of the snake
+    private GridCell<Character> head;
 
     /**
-     * Class constructor.
-     * 
-     * @param position
-     * @param length
+     * Create a new snake with the given head position.
+     *
+     * @param headPos The position of the head of the snake
      */
-    public Snake(Coordinate position, int length) {
-        this.position = position;
-        body.add(position);
-        for (int i = 0; i < length; i++) {
-            body.add(new Coordinate(position.getRow(), position.getCol() - i));
-        }
+    public Snake(CellPosition headPos) {
+        head = new GridCell<Character>(headPos, 'H');
     }
-
-
-
-    public int getLength() {
-        return body.size();
-    } 
 
     /**
-     * Getter-method for the snake.
+     * Getter for the snake, which is only the head for now.
      * 
-     * @return the snake
+     * @return head
      */
-    public Coordinate getPosition() {
-        return position;
-    }
-
-    public Coordinate getTail() {
-        return body.get(getLength() - 1);
-    }
-
-    public void setPosition(Coordinate position) {
-        this.position = position;
-    }
-
-    public void grow() {
-        body.add(getTail());
-    }
-
-    // sjekk om denne kan flyttes til Model senere
-    public boolean moveSnake(Coordinate position, Board board) {
-        if (position.equals(this.position)) {
-            return false;
-        }
-        this.position = position;
-        body.add(0, position);
-        body.remove(getLength() - 1);
-        return true;
-    }
-
-    public Coordinate nextHead(int deltaRow, int deltaCol) {
-        return new Coordinate(position.getRow() + deltaRow, position.getCol() + deltaCol);
+    public GridCell<Character> getSnake() {
+        return head;
     }
 
     @Override
-    public Iterator<CoordinateItem<Character>> iterator() {
-        LinkedList<CoordinateItem<Character>> cells = new LinkedList<>();
-        for (Coordinate coord : body) {
-            cells.add(new CoordinateItem<>(position, symbol));
+    public Iterator<GridCell<Character>> iterator() {
+        // The snake is a list of cells
+        LinkedList<GridCell<Character>> snake = new LinkedList<>();
+        for (int i = 0; i < 5; i++) {
+            snake.add(head);
         }
-        return cells.iterator();
+        return snake.iterator();
     }
 
+    /**
+     * Move the snake in the given direction.
+     *
+     * @param deltaRow The change in row
+     * @param deltaCol The change in column
+     * @return A new snake with the new position
+     */
+    public Snake moveSnake(int deltaRow, int deltaCol) {
+        int newRow = head.pos().row() + deltaRow;
+        int newCol = head.pos().col() + deltaCol;
+        return new Snake(new CellPosition(newRow, newCol));
+    }
 }

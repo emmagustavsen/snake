@@ -17,8 +17,7 @@ public class ColorTheme {
     public Color screenFont = new Color(227, 213, 202);
 
     // Colors for the board (tiled background with alternating colors, like a chess board)
-    public Color lightBoard = new Color(61, 61, 61);
-    public Color darkBoard = new Color(49, 49, 49);
+    public Color boardColor = new Color(49, 49, 49);
 
     // Default color for the snake and apple
     public Color snakeColor = new Color(113, 131, 85);
@@ -37,12 +36,16 @@ public class ColorTheme {
     // Usikker på om vi skal ha getters eller setters (eller bare setters) for fargene på brettet,
     // ettersom de ikke skal endres...
 
-    /**
-     * Getter for the light board color.
-     * @return the light board color
-     */
-    public Color getLightBoardColor() {
-        return lightBoard;
+    public Color getCellColor(char symbol) {
+        Color color = switch (symbol) {
+            case 'H' -> snakeColor;
+            case 'S' -> snakeColor;
+            case 'A' -> appleColor;
+            case '-' -> boardColor;
+            default -> throw new IllegalArgumentException(
+                "No available color for '" + symbol + "'");
+            };
+        return color;
     }
 
     /**
@@ -50,7 +53,7 @@ public class ColorTheme {
      * @return the dark board color
      */
     public Color getDarkBoardColor() {
-        return darkBoard;
+        return boardColor;
     }
 
     /**

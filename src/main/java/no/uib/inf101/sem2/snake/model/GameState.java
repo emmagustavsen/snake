@@ -5,7 +5,7 @@ package no.uib.inf101.sem2.snake.model;
  * 
  * @author Jasmine Næss
  */
-public enum GameStates {
+public enum GameState {
     START_GAME,
     ACTIVE_GAME,
     PAUSE,

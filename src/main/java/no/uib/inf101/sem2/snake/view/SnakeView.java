@@ -1,6 +1,8 @@
 package no.uib.inf101.sem2.snake.view;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.Rectangle2D;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -14,121 +16,165 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import no.uib.inf101.sem2.grid.CoordinateItem;
-import no.uib.inf101.sem2.snake.model.Tile;
-import no.uib.inf101.sem2.snake.model.GameStates;
+import no.uib.inf101.sem2.grid.GridCell;
+import no.uib.inf101.sem2.snake.model.GameState;
 
 /**
+ * SnakeView class is responsible for viewing the game.
  * 
  * @author Jasmine Næss - jasmine.ness@student.uib.no
  */
 public class SnakeView extends JComponent {
-    public SnakeViewable view;
 
-    ColorTheme theme = new ColorTheme();
+    private static final int padding = 10;
+    private ColorTheme theme;
+    private SnakeViewable model;
 
-    int padding = 15;
-
-    {
-        this.setFocusable(true);
-    }
-
+    /**
+     * SnakeView retrieves number of rows and cols on grid
+     * and which color it should have.
+     */
     public SnakeView(SnakeViewable model) {
-        this.view = model;
+        this.model = model;
+        this.setFocusable(true); // Hentet fra SampleView.java
+
+        this.setPreferredSize(getPreferredSize());
+
+        this.theme = new ColorTheme();
+        this.setBackground(theme.boardColor);
     }
 
     @Override
-    public void paint(Graphics canvas) {
-        super.paint(canvas);
-        drawBoard(canvas, padding, padding, this.getWidth() - 2 * padding, this.getHeight() -2 * padding, padding/15);
+    public void paintComponent(Graphics canvas) {
+        super.paintComponent(canvas);
+        Graphics2D g2d = (Graphics2D) canvas;
+        drawGame(g2d);
 
-        // Start screen
-        if (view.getGameScreen() == GameStates.START_GAME) {
-            canvas.setColor(theme.transparentgray);
-            canvas.fillRect(padding, padding, this.getWidth() - 2 * padding, this.getHeight() - 2 * padding);
-
-            canvas.setColor(theme.screenFont);
-            Font str = new Font("Monospaced", Font.BOLD, 40);
-            canvas.setFont(str);
-            GraphicHelperMethods.drawCenteredString(
-                canvas, "Press ENTER",
-                20, 75, this.getWidth() - 40, this.getHeight() - 540);
-            GraphicHelperMethods.drawCenteredString(
-                canvas, "to begin!",
-                20, 125, this.getWidth() - 40, this.getHeight() - 540);
-        }
-
-        // Pause screen
-
-        // Game over screen
-
-    }
-
-    /**
-     * Construct a tile with padding on the right and bottom side.
-     * 
-     * @param canvas the canvas to be painted
-     * @param xCell x-value
-     * @param yCell y-value
-     * @param cellWidth
-     * @param cellHeight
-     * @param padding
-     * @param color
-     */
-    public void drawTileWithRightBottomPadding(Graphics canvas, int xCell, int yCell, int cellWidth, int cellHeight, int padding, Color color) {
-        canvas.setColor(color);
-        canvas.fillRect(xCell, yCell, cellWidth - padding, cellHeight - padding);
-    }
-
-    /**
-     * Construct a board with padding on the right and bottom side.
-     * 
-     * @param canvas the canvas to be painted
-     * @param xBoard x-value
-     * @param yBoard y-value
-     * @param boardWidth
-     * @param boardHeight
-     * @param padding
-     */
-    public void drawBoardWithRightBottomPadding(Graphics canvas, int xBoard, int yBoard, int boardWidth, int boardHeight, int padding, Iterable<CoordinateItem<Tile>> tilesToPaint) {
-
-        for (CoordinateItem<Tile> coordinateItem : tilesToPaint) {
-            Color color = theme.darkBoard;
-            int row = coordinateItem.coordinate.row;
-            int col = coordinateItem.coordinate.col;
-            Tile tile = coordinateItem.item;
-
-            if (tile != null) {
-                color = tile.color;
-            }
-
-            int cols = this.view.getCols();
-            int rows = this.view.getRows();
-
-            // Calculate the coordinates of the tile and paint it
-            int tileX = xBoard + col * boardWidth / cols;
-            int tileY = yBoard + row * boardHeight / rows;
-            int nextX = xBoard + (col + 1) * boardWidth / cols;
-            int nextY = yBoard + (row + 1) * boardHeight / rows;
-            int tileWidth = nextX - tileX;
-            int tileHeight = nextY - tileY;
-
-            drawTileWithRightBottomPadding(canvas, tileX, tileY, tileWidth, tileHeight, padding, color);
+        if (model.getGameScreen() == GameState.START_GAME) {
+            drawStartScreen(g2d);
+        } else if (model.getGameScreen() == GameState.PAUSE) {
+            drawPauseScreen(g2d);
+        } else if (model.getGameScreen() == GameState.GAME_OVER) {
+            drawGameOverScreen(g2d);
         }
     }
 
     /**
-     * Construct the entire board, with padding on all sides.
+     * Method for drawing the cells.
      * 
      * @param canvas
-     * @param x 
-     * @param y
-     * @param width
-     * @param height
-     * @param padding
+     * @param cells
+     * @param converter
+     * @param getColors
      */
-    public void drawBoard(Graphics canvas, int x, int y, int width, int height, int padding) {
-        drawBoardWithRightBottomPadding(canvas, x + padding, y + padding, width - padding, height - padding, padding, this.view.iterableBoard());
+    private static void drawCells(Graphics2D canvas, Iterable<GridCell<Character>> cells,
+            CellPositionToPixelConverter converter, ColorTheme getColors) {        
+        for (GridCell<Character> gridChar : cells) {
+            Rectangle2D tile = converter.getBoundsForCell(gridChar.pos());
+            Color theme = getColors.getCellColor(gridChar.value());
+            canvas.setColor(theme);
+            canvas.fill(tile);
+        }
+    }
+
+    /**
+     * Method drawing the snake-game itself.
+     * 
+     * @param graphics
+     */
+    private void drawGame(Graphics2D graphics) {
+        double width = this.getWidth() - 2 * padding;
+        double height = this.getHeight() - 2 * padding;
+        Rectangle2D frameRectangle = new Rectangle2D.Double(padding, padding, width, height);
+        graphics.fill(frameRectangle);
+        CellPositionToPixelConverter cellConverter = new CellPositionToPixelConverter(frameRectangle,
+                model.getDimension(),
+                0);
+        drawCells(graphics, model.getTilesOnBoard(), cellConverter, theme);
+        drawCells(graphics, model.movingSnakeTiles(), cellConverter, theme);
+    }
+
+    /**
+     * Method for drawing the start screen,
+     * which goes on top of the game.
+     * 
+     * This is the first screen you see when you start the game.
+     * 
+     * @param graphics
+     */
+    private void drawStartScreen(Graphics2D graphics) {
+        double width = this.getWidth() - 2 * padding;
+        double height = this.getHeight() - 2 * padding;
+        Rectangle2D frameRectangle = new Rectangle2D.Double(padding, padding, width, height);
+
+        graphics.setColor(theme.transparentgray);
+        graphics.fill(frameRectangle);
+
+        graphics.setColor(theme.screenFont);
+        Font str = new Font("Monospaced", Font.BOLD, 40);
+        graphics.setFont(str);
+        GraphicHelperMethods.drawCenteredString(
+            graphics, "Press ENTER",
+            20, 75, this.getWidth() - 40, this.getHeight() - 540);
+        GraphicHelperMethods.drawCenteredString(
+            graphics, "to begin!",
+            20, 125, this.getWidth() - 40, this.getHeight() - 540);
+    }
+
+    /**
+     * Method for drawing the pause screen,
+     * which goes on top of the game.
+     * 
+     * @param graphics
+     */
+    private void drawPauseScreen(Graphics2D graphics) {
+        double width = this.getWidth() - 2 * padding;
+        double height = this.getHeight() - 2 * padding;
+        Rectangle2D frameRectangle = new Rectangle2D.Double(padding, padding, width, height);
+
+        graphics.setColor(theme.transparentgray);
+        graphics.fill(frameRectangle);
+
+        graphics.setColor(theme.screenFont);
+        Font str = new Font("Monospaced", Font.BOLD, 40);
+        graphics.setFont(str);
+        GraphicHelperMethods.drawCenteredString(
+            graphics, "Press ENTER",
+            20, 75, this.getWidth() - 40, this.getHeight() - 540);
+        GraphicHelperMethods.drawCenteredString(
+            graphics, "to continue!",
+            20, 125, this.getWidth() - 40, this.getHeight() - 540);
+    }
+
+    /**
+     * Method for drawing the game over screen,
+     * which goes on top of the game.
+     * 
+     * @param graphics
+     */
+    private void drawGameOverScreen(Graphics2D graphics) {
+        double width = this.getWidth() - 2 * padding;
+        double height = this.getHeight() - 2 * padding;
+        Rectangle2D frameRectangle = new Rectangle2D.Double(padding, padding, width, height);
+
+        graphics.setColor(theme.transparentgray);
+        graphics.fill(frameRectangle);
+
+        graphics.setColor(theme.screenFont);
+        Font str = new Font("Monospaced", Font.BOLD, 40);
+        graphics.setFont(str);
+        GraphicHelperMethods.drawCenteredString(
+            graphics, "GAME OVER!",
+            20, 75, this.getWidth() - 40, this.getHeight() - 540);
+        GraphicHelperMethods.drawCenteredString(
+            graphics, "Your score: " + model.getScore(),
+            20, 125, this.getWidth() - 40, this.getHeight() - 540);
+        GraphicHelperMethods.drawCenteredString(
+            graphics, "Press [R] to restart,",
+            20, 200, this.getWidth() - 40, this.getHeight() - 540);
+        GraphicHelperMethods.drawCenteredString(
+            graphics, "or [Q] to quit.",
+            20, 250, this.getWidth() - 40, this.getHeight() - 540);
     }
     
     @Override
@@ -173,7 +219,9 @@ public class SnakeView extends JComponent {
         ImageIcon imageIcon = new ImageIcon(GraphicHelperMethods.loadImageFromResources("/snake.png"));
 		JLabel imageLabel = new JLabel(imageIcon);
 
-        JLabel score = new JLabel("SCORE: "); // + this.view.getScore());
+        JLabel score = new JLabel("SCORE: " + this.model.getScore());
+        score.repaint();
+  
         score.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, 15)); 
         score.setFont(new Font("Monospaced", Font.BOLD, 30));
         score.setForeground(theme.menuFont);
@@ -187,5 +235,5 @@ public class SnakeView extends JComponent {
         frame.setVisible(true);
         return frame;
     }
-    
+
 }
