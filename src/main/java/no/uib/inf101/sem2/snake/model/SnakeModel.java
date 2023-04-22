@@ -7,7 +7,7 @@ import no.uib.inf101.sem2.grid.CellPosition;
 import no.uib.inf101.sem2.grid.GridCell;
 import no.uib.inf101.sem2.grid.GridDimension;
 import no.uib.inf101.sem2.snake.controller.SnakeControllable;
-import no.uib.inf101.sem2.snake.model.apple.Apple;
+import no.uib.inf101.sem2.snake.model.objects.Object;
 import no.uib.inf101.sem2.snake.model.snake.Snake;
 import no.uib.inf101.sem2.snake.view.ColorTheme;
 import no.uib.inf101.sem2.snake.view.SnakeViewable;
@@ -24,15 +24,11 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
     public ColorTheme theme = new ColorTheme();
     public boolean canChangeDirection;
 
-    // public int rows = 15;
-    // public int cols = 15;
     public int snakeLength = 3;
     public int score;
     public Board board;
     public Snake snake;
-
-    // public final Apple apple;
-    private GridCell<Character> apple;
+    public Object object;
 
     // If the snake is moving one direction, it cannot directly move in the opposit direction.
     // Thus, we need to keep track of the opposite direction for a given direction.
@@ -41,8 +37,7 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
 
     private LinkedList<CellPosition> snakePosition = new LinkedList<>();
 
-    
-     /**
+    /**
      * Class constructor.
      * 
      */
@@ -54,7 +49,8 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
         this.opposite = Direction.RIGHT;
         this.canChangeDirection = true;
         this.snakePosition.add(snake.getSnake().pos());
-        spawnApple();
+        spawnObject('A');
+        spawnObject('B'); // kan legge inn feller? eller andre objekter
     }
 
     private boolean legalPosition(Snake snake) {
@@ -64,7 +60,7 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
                 state = GameState.GAME_OVER;
                 return false;
             }
-            if (board.get(snakeHead.pos()) == 'H') {
+            if (board.get(snakeHead.pos()) == 'S') {
                 state = GameState.GAME_OVER;
                 return false;
             }
@@ -95,31 +91,40 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
                 state = GameState.GAME_OVER;
             }
             
-            board.set(headPosition, 'H');
-            snakePosition.add(headPosition);
-            updateSnake();
+            board.set(headPosition, 'S'); // Set the head of the snake
+            snakePosition.add(headPosition); // Add the head to the list of positions
+            updateSnake(); // Update the snake by removing the tail
         }
     }
 
-    private void spawnApple() {
-        Random random = new Random();
-        int x = random.nextInt(board.cols());
-        int y = random.nextInt(board.rows());
-        CellPosition applePosition = new CellPosition(x, y);
-        while (!board.get(applePosition).equals('-')) {
-            x = random.nextInt(board.cols());
-            y = random.nextInt(board.rows());
-            applePosition = new CellPosition(x, y);
+    /**
+     * Spawns a new object on the board.
+     * The new object is placed on a random empty tile.
+     * The object is defined by a character.
+     * 
+     * @param objectChar 
+     */
+    public void spawnObject(char objectChar) {
+        int x = random.nextInt(board.rows());
+        int y = random.nextInt(board.cols());
+        CellPosition objectPosition = new CellPosition(x, y);
+    
+        // If the object is not placed on an empty tile, generate a new position
+        while (!board.get(objectPosition).equals('-')) {
+            x = random.nextInt(board.rows());
+            y = random.nextInt(board.cols());
+            objectPosition = new CellPosition(x, y);
         }
-        apple = new GridCell<>(applePosition, 'A');
-        board.set(applePosition, 'A');
+        Object apple = new Object('A', objectPosition);
+        this.object = apple;
+        board.set(objectPosition, objectChar);
     }
 
     private void checkEaten() {
-        if (snake.getSnake().pos().equals(apple.pos())) {
+        if (snake.getSnake().pos().equals(object.getObjectPosition())) {
             snakeLength++;
             score+= 10;
-            spawnApple();
+            spawnObject('A');
         }
     }
     
@@ -128,6 +133,7 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
      */
     private void updateSnake() {
         while (snakeLength <= snakePosition.size()) {
+            // Set the tail of the snake to empty
             board.set(snakePosition.get(0), '-');
             snakePosition.remove(0);
         }
@@ -138,8 +144,10 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
         if (canChangeDirection == false)
         return;
 
+        // We can't change direction if we are moving in the opposite direction
         if (direction != opposite) {
             this.direction = direction;
+            // Define the opposite direction(s)
             switch (direction) {
                 case UP:
                     opposite = Direction.DOWN;
@@ -157,6 +165,7 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
                     break;
                 }
             }
+            // We have changed direction, so we can't change again until the next clock tick
             canChangeDirection = false;
     }
 
@@ -165,12 +174,13 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
         if (state == GameState.ACTIVE_GAME) {
             moveSnake(direction);
         }
+        // We have moved, so we can change direction again
         canChangeDirection = true;
     }
 
     @Override
     public int getDelay() {
-        return 150;
+        return 180;
     }
 
     @Override
@@ -184,9 +194,9 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
         snakePosition.clear();
         board.clearBoard();
         snake = new Snake(new CellPosition(7, 7));
-        spawnApple();
+        object.spawnObject('A');
         snakePosition.add(snake.getSnake().pos());
-        board.set(snake.getSnake().pos(), 'H');
+        board.set(snake.getSnake().pos(), 'S');
         updateSnake();
     }
 
@@ -196,12 +206,12 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
     }
 
     @Override
-    public Iterable<GridCell<Character>> getTilesOnBoard() {
+    public Iterable<GridCell<Character>> tileCells() {
         return board;
     }
 
     @Override
-    public Iterable<GridCell<Character>> movingSnakeTiles() {
+    public Iterable<GridCell<Character>> snakeCells() {
         return snake;
     }
 

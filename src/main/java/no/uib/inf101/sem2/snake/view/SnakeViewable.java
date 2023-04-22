@@ -32,7 +32,7 @@ public interface SnakeViewable {
      * 
      * @return Iterable<GridCell<Character>>
      */
-    Iterable<GridCell<Character>> getTilesOnBoard();
+    Iterable<GridCell<Character>> tileCells();
 
     /**
      * Method that returns an object that, when iterated over, gives all positions
@@ -40,7 +40,7 @@ public interface SnakeViewable {
      * 
      * @return Iterable<GridCell<Character>>
      */
-    Iterable<GridCell<Character>> movingSnakeTiles();
+    Iterable<GridCell<Character>> snakeCells();
 
      /**
       * Get score once an apple is eaten.

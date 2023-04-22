@@ -81,7 +81,7 @@ public class SnakeView extends JComponent {
             if(gridChar.value() == 'A') {
                 canvas.drawImage(appleSymbol.getImage(), (int)tile.getX(), (int)tile.getY(), (int)tile.getWidth(), (int)tile.getHeight(), null);
             }
-            if (gridChar.value() == 'H') {
+            if (gridChar.value() == 'S') {
                 canvas.drawImage(snakeSymbol.getImage(), (int)tile.getX(), (int)tile.getY(), (int)tile.getWidth(), (int)tile.getHeight(), null);
             }
 
@@ -101,8 +101,8 @@ public class SnakeView extends JComponent {
         CellPositionToPixelConverter cellConverter = new CellPositionToPixelConverter(frameRectangle,
                 model.getDimension(),
                 0);
-        drawCells(graphics, model.getTilesOnBoard(), cellConverter, theme);
-        drawCells(graphics, model.movingSnakeTiles(), cellConverter, theme);
+        drawCells(graphics, model.tileCells(), cellConverter, theme);
+        drawCells(graphics, model.snakeCells(), cellConverter, theme);
         // draw score on bottom:
         graphics.setColor(theme.menuFont);
         Font str = new Font("Monospaced", Font.BOLD, 30);

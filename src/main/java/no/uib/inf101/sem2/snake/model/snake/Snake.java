@@ -8,7 +8,6 @@ import no.uib.inf101.sem2.grid.GridCell;
 
 public class Snake implements Iterable<GridCell<Character>> {
 
-    // The head of the snake
     private GridCell<Character> head;
 
     /**
@@ -17,7 +16,7 @@ public class Snake implements Iterable<GridCell<Character>> {
      * @param headPos The position of the head of the snake
      */
     public Snake(CellPosition headPos) {
-        head = new GridCell<Character>(headPos, 'H');
+        head = new GridCell<Character>(headPos, 'S');
     }
 
     /**
@@ -33,9 +32,7 @@ public class Snake implements Iterable<GridCell<Character>> {
     public Iterator<GridCell<Character>> iterator() {
         // The snake is a list of cells
         LinkedList<GridCell<Character>> snake = new LinkedList<>();
-        for (int i = 0; i < 5; i++) {
-            snake.add(head);
-        }
+        snake.add(head);
         return snake.iterator();
     }
 

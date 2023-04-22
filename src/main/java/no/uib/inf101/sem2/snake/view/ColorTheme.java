@@ -18,6 +18,7 @@ public class ColorTheme {
 
     // Colors for the board (tiled background with alternating colors, like a chess board)
     public Color boardColor = new Color(49, 49, 49);
+    public Color lightBoardColor = new Color(58, 58, 58);
 
     // Default color for the snake and apple
     public Color snakeColor = new Color(113, 131, 85);
@@ -35,7 +36,7 @@ public class ColorTheme {
 
     public Color getCellColor(char symbol) {
         Color color = switch (symbol) {
-            case 'H' -> boardColor;
+            case 'S' -> boardColor;
             case 'A' -> boardColor;
             case '-' -> boardColor;
             default -> throw new IllegalArgumentException(
