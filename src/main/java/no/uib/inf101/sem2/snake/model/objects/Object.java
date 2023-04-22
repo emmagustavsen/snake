@@ -37,27 +37,5 @@ public class Object {
     public CellPosition getObjectPosition() {
         return position;
     }
-
-    /**
-     * Spawns a new object on the board.
-     * The new object is placed on a random empty tile.
-     * The object is defined by a character.
-     * 
-     * @param objectChar 
-     */
-    public void spawnObject(char objectChar) {
-        int x = random.nextInt(boardRows);
-        int y = random.nextInt(boardCols);
-        CellPosition objectPosition = new CellPosition(x, y);
-    
-        // If the fruit is not placed on an empty tile, generate a new position
-        while (!board.get(objectPosition).equals('-')) {
-            x = random.nextInt(boardRows);
-            y = random.nextInt(boardCols);
-            objectPosition = new CellPosition(x, y);
-        }
-        new Object(objectChar, objectPosition);
-        board.set(objectPosition, objectChar);
-    }
     
 }

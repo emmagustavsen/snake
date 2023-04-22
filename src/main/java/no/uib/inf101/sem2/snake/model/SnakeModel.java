@@ -49,8 +49,8 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
         this.opposite = Direction.RIGHT;
         this.canChangeDirection = true;
         this.snakePosition.add(snake.getSnake().pos());
-        spawnObject('A');
-        spawnObject('B'); // kan legge inn feller? eller andre objekter
+        generateObject('A');
+        generateObject('B'); // kan legge inn feller? eller andre objekter
     }
 
     private boolean legalPosition(Snake snake) {
@@ -104,7 +104,7 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
      * 
      * @param objectChar 
      */
-    public void spawnObject(char objectChar) {
+    public void generateObject(char objectChar) {
         int x = random.nextInt(board.rows());
         int y = random.nextInt(board.cols());
         CellPosition objectPosition = new CellPosition(x, y);
@@ -124,7 +124,7 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
         if (snake.getSnake().pos().equals(object.getObjectPosition())) {
             snakeLength++;
             score+= 10;
-            spawnObject('A');
+            generateObject('A');
         }
     }
     
@@ -194,7 +194,7 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
         snakePosition.clear();
         board.clearBoard();
         snake = new Snake(new CellPosition(7, 7));
-        object.spawnObject('A');
+        generateObject('A');
         snakePosition.add(snake.getSnake().pos());
         board.set(snake.getSnake().pos(), 'S');
         updateSnake();
