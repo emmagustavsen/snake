@@ -34,6 +34,9 @@ public class ColorTheme {
     public Color orange = new Color(255, 214, 112);
     public Color strawberry = new Color(201, 24, 74);
 
+    /**
+     * Constructor for the ColorTheme class.
+     */
     public Color getCellColor(char symbol) {
         Color color = switch (symbol) {
             case 'S' -> boardColor;

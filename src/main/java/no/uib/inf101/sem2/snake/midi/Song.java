@@ -24,10 +24,18 @@ public class Song implements Runnable {
         this.doPlayMidi(song, true);
     }
 
+    /**
+     * Checks if the song is playing.
+     *
+     * @return true if the song is playing, false otherwise
+     */
     public boolean songIsPlaying() {
         return this.sequencer != null && this.sequencer.isRunning();
     }
 
+    /**
+     * Plays the song.
+     */
     private void doPlayMidi(final InputStream is, final boolean loop) {
         try {
             this.doStopMidiSounds();
@@ -43,6 +51,9 @@ public class Song implements Runnable {
         }
     }
 
+    /**
+     * Stops the song.
+     */
     public void doStopMidiSounds() {
         try {
             if (this.sequencer == null || !this.sequencer.isRunning()) {
@@ -57,6 +68,9 @@ public class Song implements Runnable {
         this.sequencer = null;
     }
 
+    /**
+     * Pauses the song.
+     */
     public void doPauseMidiSounds() {
         try {
             if (this.sequencer == null || !this.sequencer.isRunning()) {
@@ -68,7 +82,10 @@ public class Song implements Runnable {
             this.midiError("" + e);
         }
     }
-    
+
+    /**
+     * Unpauses the song.
+     */
     public void doUnpauseMidiSounds() {
         try {
             if (this.sequencer == null) {
@@ -81,6 +98,11 @@ public class Song implements Runnable {
         }
     }
 
+    /**
+     * Prints an error message.
+     *
+     * @param msg the error message
+     */
     private void midiError(final String msg) {
         System.err.println("Midi error: " + msg);
         this.sequencer = null;

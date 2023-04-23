@@ -34,6 +34,11 @@ public class Object {
         random = new Random();
     }
 
+    /**
+     * Class constructor.
+     * Constructs a new Apple, defined by a character and a coordinate.
+     *
+     */
     public CellPosition getObjectPosition() {
         return position;
     }

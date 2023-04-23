@@ -81,31 +81,17 @@ public class Grid<E> implements IGrid<E> {
         row.set(pos.col(), value);
     }
 
-    /**
-     * Create a new grid from the given two-dimensional array.
-     *
-     * @param grid the two-dimensional array
-     */
     @Override
     public int rows() {
         return this.grid.size();
     }
 
-    /**
-     * Create a new grid from the given two-dimensional array.
-     *
-     * @param grid the two-dimensional array
-     */
+
     @Override
     public int cols() {
         return this.grid.get(0).size();
     }
 
-    /**
-     * Create a new grid from the given two-dimensional array.
-     *
-     * @param grid the two-dimensional array
-     */
     @Override
     public Iterator<GridCell<E>> iterator() {
         List<GridCell<E>> result = new ArrayList<>(); // Kopiert og modifisert kode fra Lab 4 getCells

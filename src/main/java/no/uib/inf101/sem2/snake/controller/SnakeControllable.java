@@ -11,8 +11,16 @@ public interface SnakeControllable {
      */
     public void setGameScreen(GameState gameScreen);
 
+    /**
+     * Get the game screen.
+     * @return the current game screen
+     */
     public GameState getGameScreen();
 
+    /**
+     * Set the direction of the snake.
+     * @param direction
+     */
     public void setDirection(Direction direction);
 
     public void clockTick();

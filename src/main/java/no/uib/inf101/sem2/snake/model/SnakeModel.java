@@ -53,6 +53,11 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
         generateObject('B'); // kan legge inn feller? eller andre objekter
     }
 
+    /**
+     * Get the current game state.
+     *
+     * @return GameState
+     */
     private boolean legalPosition(Snake snake) {
         for (GridCell<Character> snakeHead : snake) {
 
@@ -120,6 +125,11 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
         board.set(objectPosition, objectChar);
     }
 
+    /**
+     * Get the current game state.
+     *
+     * @return GameState
+     */
     private void checkEaten() {
         if (snake.getSnake().pos().equals(object.getObjectPosition())) {
             snakeLength++;

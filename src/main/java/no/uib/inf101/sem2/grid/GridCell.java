@@ -7,14 +7,6 @@ package no.uib.inf101.sem2.grid;
  */
 public record GridCell<E>(CellPosition pos, E value) {
 
-    public int getRow() {
-        return 0;
-    }
-
-    public int getColumn() {
-        return 0;
-    }
-
     public String getValue() {
         return null;
     }

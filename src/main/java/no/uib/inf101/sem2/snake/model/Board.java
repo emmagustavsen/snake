@@ -20,6 +20,13 @@ public class Board extends Grid<Character> {
     }
 
 
+    /**
+     * Method that returns an object that, when iterated over, gives all positions
+     * on the board with same symbol.
+     *
+     * @param
+     * @return Iterable<GridCell<Character>>
+     */
     public void clearBoard() {
         for (GridCell<Character> snakeBoardTile : this) {
             this.set(snakeBoardTile.pos(), '-');
