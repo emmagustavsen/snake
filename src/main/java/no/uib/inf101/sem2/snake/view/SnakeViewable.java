@@ -49,4 +49,5 @@ public interface SnakeViewable {
       */
      public int getScore();
 
+    void setGameScreen(GameState startGame);
 }

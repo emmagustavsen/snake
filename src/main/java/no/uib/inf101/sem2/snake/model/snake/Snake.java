@@ -19,6 +19,8 @@ public class Snake implements Iterable<GridCell<Character>> {
         head = new GridCell<Character>(headPos, 'S');
     }
 
+
+
     /**
      * Getter for the snake, which is only the head for now.
      * 

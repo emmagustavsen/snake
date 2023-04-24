@@ -32,10 +32,10 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
 
     // If the snake is moving one direction, it cannot directly move in the opposit direction.
     // Thus, we need to keep track of the opposite direction for a given direction.
-    private Direction direction;
-    private Direction opposite;
+    public Direction direction;
+    public Direction opposite;
 
-    private LinkedList<CellPosition> snakePosition = new LinkedList<>();
+    public LinkedList<CellPosition> snakePosition = new LinkedList<>();
 
     /**
      * Class constructor.
@@ -52,6 +52,7 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
         generateObject('A');
         // generateObject('B'); // kan legge inn feller? eller andre objekter
     }
+
 
     /**
      * Get the current game state.
@@ -78,7 +79,7 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
      * 
      * @param direction
      */
-    private void moveSnake(Direction direction) {
+    public void moveSnake(Direction direction) {
         CellPosition headPosition = snake.getSnake().pos();
         if (state == GameState.ACTIVE_GAME) {
             Snake snake = switch (direction) {
@@ -130,7 +131,7 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
      *
      * @return GameState
      */
-    private void checkEaten() {
+    public void checkEaten() {
         if (snake.getSnake().pos().equals(object.getObjectPosition())) {
             snakeLength++;
             score+= 10;
@@ -238,5 +239,14 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
     @Override
     public GameState getGameScreen() {
         return state;
+    }
+
+
+    public LinkedList<CellPosition> getSnakePosition() {
+        return snakePosition;
+    }
+
+    public Board getBoard() {
+        return board;
     }
 }

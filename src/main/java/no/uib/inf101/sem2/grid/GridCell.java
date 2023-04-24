@@ -7,8 +7,9 @@ package no.uib.inf101.sem2.grid;
  */
 public record GridCell<E>(CellPosition pos, E value) {
 
-    public String getValue() {
-        return null;
+    public GridCell(int i1, int i2, E s) {
+        this(new CellPosition(i1, i1), s);
     }
+
 }
 

@@ -32,4 +32,5 @@ public class Board extends Grid<Character> {
             this.set(snakeBoardTile.pos(), '-');
         }
     }
+
 }

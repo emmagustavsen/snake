@@ -8,5 +8,16 @@ package no.uib.inf101.sem2.grid;
  * @param col the column of the cell
  */
 
-public record CellPosition(int row, int col) {}
+public record CellPosition(int row, int col) {
+
+    @Override
+    public int row() {
+        return row;
+    }
+
+    @Override
+    public int col() {
+        return col;
+    }
+}
 

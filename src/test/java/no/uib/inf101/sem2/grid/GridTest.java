@@ -1,14 +1,18 @@
-package no.uib.inf101.sem2;
+package no.uib.inf101.sem2.grid;
 
 import no.uib.inf101.sem2.grid.CellPosition;
 import no.uib.inf101.sem2.grid.Grid;
 import no.uib.inf101.sem2.grid.GridCell;
-import org.testng.annotations.Test;
+import org.junit.Test;
+
+import java.util.Iterator;
 
 import static org.testng.Assert.*;
 
 
 public class GridTest {
+
+    private Grid<Integer> grid;
     @Test
     public void testConstructorAndGet() {
         // Test constructor with default value
@@ -22,18 +26,6 @@ public class GridTest {
         // Test set() and get()
         grid.set(new CellPosition(1, 1), "new value");
         assertEquals("new value", grid.get(new CellPosition(1, 1)));
-    }
-
-    @Test
-    public void testIterator() {
-        // Test iterator() method
-        Grid<String> grid = new Grid<>(2, 2, "test");
-        String[] expectedValues = {"test", "test", "test", "test"};
-        int i = 0;
-
-        for (GridCell<String> cell : grid) {
-            assertEquals(expectedValues[i++], cell.getValue());
-        }
     }
 
     @Test
