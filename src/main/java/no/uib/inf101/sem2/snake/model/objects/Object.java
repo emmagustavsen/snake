@@ -42,5 +42,6 @@ public class Object {
     public CellPosition getObjectPosition() {
         return position;
     }
-    
+
+
 }

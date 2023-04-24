@@ -249,4 +249,21 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
     public Board getBoard() {
         return board;
     }
+
+    public Object getObject() {
+        return object;
+    }
+
+    public Enum<Direction> getDirection() {
+        return direction;
+    }
+
+    public Enum<Direction> getOpposite() {
+        return opposite;
+    }
+
+    public boolean setCanChangeDirection(boolean canChange) {
+        canChangeDirection = canChange;
+        return canChange;
+    }
 }
