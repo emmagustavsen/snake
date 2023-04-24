@@ -50,7 +50,7 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
         this.canChangeDirection = true;
         this.snakePosition.add(snake.getSnake().pos());
         generateObject('A');
-        generateObject('B'); // kan legge inn feller? eller andre objekter
+        // generateObject('B'); // kan legge inn feller? eller andre objekter
     }
 
     /**
