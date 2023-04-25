@@ -50,4 +50,6 @@ public class Snake implements Iterable<GridCell<Character>> {
         int newCol = head.pos().col() + deltaCol;
         return new Snake(new CellPosition(newRow, newCol));
     }
+
+
 }

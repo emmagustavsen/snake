@@ -18,3 +18,6 @@ velger, vil du ha det gøy mens du prøver å slå dine egne rekorder og bli den
 Lykke til, og ha det gøy med Snake!
 
 
+Lenke til video-demostrasjon av spillet: https://youtu.be/noSyFX46Omc
+
+
