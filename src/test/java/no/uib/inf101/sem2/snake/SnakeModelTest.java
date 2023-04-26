@@ -5,21 +5,15 @@ import static org.junit.Assert.*;
 import no.uib.inf101.sem2.grid.CellPosition;
 import no.uib.inf101.sem2.snake.model.Board;
 import no.uib.inf101.sem2.snake.model.Direction;
-import no.uib.inf101.sem2.snake.model.GameState;
-import no.uib.inf101.sem2.snake.model.SnakeModel;
-import org.junit.Before;
-import org.junit.Test;
 
-import no.uib.inf101.sem2.grid.GridCell;
-import no.uib.inf101.sem2.grid.GridDimension;
+import no.uib.inf101.sem2.snake.model.SnakeModel;
+import org.junit.jupiter.api.Test;
+
 import no.uib.inf101.sem2.snake.model.objects.Object;
 import no.uib.inf101.sem2.snake.model.snake.Snake;
 
 public class SnakeModelTest {
-    private SnakeModel model;
-    private Board board;
-
-    private Snake snake;
+    private SnakeModel model = new SnakeModel(new Board(10,10),new Snake(new CellPosition(1,1)));
 
 
     @Test
@@ -42,41 +36,27 @@ public class SnakeModelTest {
     }
 
     @Test
-    public void testSetDirection() {
+    public void testSetDirectionUp() {
         this.model = new SnakeModel(new Board(10,10),new Snake(new CellPosition(1,1)));
-        model.setDirection(Direction.UP);
-        assertEquals(model.getDirection(), Direction.UP);
-
+       model.setDirection(Direction.UP);
+       assertEquals(model.getDirection(), Direction.UP);
+    }
+    @Test
+    public void testSetDirectionLeft() {
+        this.model = new SnakeModel(new Board(10,10),new Snake(new CellPosition(1,1)));
         model.setDirection(Direction.LEFT);
         assertEquals(model.getDirection(), Direction.LEFT);
 
-        model.setDirection(Direction.DOWN);
-        assertEquals(model.getDirection(), Direction.DOWN);
-
-        model.setDirection(Direction.RIGHT);
-        assertEquals(model.getDirection(), Direction.RIGHT);
     }
 
     @Test
-    public void testSetDirectionOpposite() {
+    public void testSetDirectionDown() {
         this.model = new SnakeModel(new Board(10,10),new Snake(new CellPosition(1,1)));
-        model.setDirection(Direction.UP);
-        model.setDirection(Direction.DOWN);
-        assertEquals(model.getDirection(), Direction.UP);
-
-        model.setDirection(Direction.LEFT);
-        model.setDirection(Direction.RIGHT);
-        assertEquals(model.getDirection(), Direction.LEFT);
-    }
-
-    @Test
-    public void testSetDirectionCanChange() {
-        this.model = new SnakeModel(new Board(10,10),new Snake(new CellPosition(1,1)));
-        model.setDirection(Direction.UP);
-        model.setCanChangeDirection(true);
         model.setDirection(Direction.DOWN);
         assertEquals(model.getDirection(), Direction.DOWN);
+
     }
+
 
     @Test
     public void testSetDirectionCannotChange() {

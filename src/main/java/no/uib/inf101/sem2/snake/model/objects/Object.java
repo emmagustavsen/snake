@@ -16,10 +16,6 @@ public class Object {
     public char character;
     public CellPosition position;
     private final Random random;
-    public Board board;
-
-    private int boardRows;
-    private int boardCols;
 
     /**
      * Class constructor.
