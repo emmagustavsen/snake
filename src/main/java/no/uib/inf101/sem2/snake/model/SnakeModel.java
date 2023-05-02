@@ -35,7 +35,7 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
     private Direction direction;
     private Direction opposite;
 
-    private LinkedList<CellPosition> snakePosition = new LinkedList<>();
+    public LinkedList<CellPosition> snakePosition = new LinkedList<>();
 
     /**
      * Class constructor.
