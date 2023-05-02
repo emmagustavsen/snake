@@ -19,23 +19,23 @@ import no.uib.inf101.sem2.snake.view.SnakeViewable;
  */
 public class SnakeModel implements SnakeViewable, SnakeControllable {
 
-    public GameState state = GameState.START_GAME;
-    public Random random = new Random();
-    public ColorTheme theme = new ColorTheme();
-    public boolean canChangeDirection;
+    private GameState state = GameState.START_GAME;
+    private Random random = new Random();
+    private ColorTheme theme = new ColorTheme();
+    private boolean canChangeDirection;
 
-    public int snakeLength = 3;
-    public int score;
-    public Board board;
-    public Snake snake;
-    public Object object;
+    private int snakeLength = 3;
+    private int score;
+    private Board board;
+    private Snake snake;
+    private Object object;
 
     // If the snake is moving one direction, it cannot directly move in the opposit direction.
     // Thus, we need to keep track of the opposite direction for a given direction.
-    public Direction direction;
-    public Direction opposite;
+    private Direction direction;
+    private Direction opposite;
 
-    public LinkedList<CellPosition> snakePosition = new LinkedList<>();
+    private LinkedList<CellPosition> snakePosition = new LinkedList<>();
 
     /**
      * Class constructor.
@@ -74,6 +74,7 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
         return true;
     }
 
+
     /**
      * Move the snake in a given direction.
      * 
@@ -110,7 +111,7 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
      * 
      * @param objectChar 
      */
-    public void generateObject(char objectChar) {
+     public void generateObject(char objectChar) {
         int x = random.nextInt(board.rows());
         int y = random.nextInt(board.cols());
         CellPosition objectPosition = new CellPosition(x, y);
@@ -131,7 +132,7 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
      *
      * @return GameState
      */
-    public void checkEaten() {
+    void checkEaten() {
         if (snake.getSnake().pos().equals(object.getObjectPosition())) {
             snakeLength++;
             score+= 10;
@@ -142,7 +143,7 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
     /**
      * Update the snake by removing the tail.
      */
-    private void updateSnake() {
+    public void updateSnake() {
         while (snakeLength <= snakePosition.size()) {
             // Set the tail of the snake to empty
             board.set(snakePosition.get(0), '-');
@@ -241,11 +242,6 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
         return state;
     }
 
-
-    public LinkedList<CellPosition> getSnakePosition() {
-        return snakePosition;
-    }
-
     public Board getBoard() {
         return board;
     }
@@ -265,5 +261,13 @@ public class SnakeModel implements SnakeViewable, SnakeControllable {
     public boolean setCanChangeDirection(boolean canChange) {
         canChangeDirection = canChange;
         return canChange;
+    }
+
+    public Snake getSnake() {
+        return snake;
+    }
+
+    public void setSnakeLength(int i) {
+        snakeLength = i;
     }
 }

@@ -2,12 +2,14 @@ package no.uib.inf101.sem2.snake.model.snake;
 
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 
 import no.uib.inf101.sem2.grid.CellPosition;
 import no.uib.inf101.sem2.grid.GridCell;
 
 public class Snake implements Iterable<GridCell<Character>> {
 
+    public Snake snake;
     private GridCell<Character> head;
 
     /**
@@ -18,7 +20,6 @@ public class Snake implements Iterable<GridCell<Character>> {
     public Snake(CellPosition headPos) {
         head = new GridCell<Character>(headPos, 'S');
     }
-
 
 
     /**
@@ -52,4 +53,13 @@ public class Snake implements Iterable<GridCell<Character>> {
     }
 
 
+    public int getLength() {
+        return 1;
+    }
+
+    public List<CellPosition> getSnakePosition() {
+        List<CellPosition> snakePosition = new LinkedList<>();
+        snakePosition.add(head.pos());
+        return snakePosition;
+    }
 }
