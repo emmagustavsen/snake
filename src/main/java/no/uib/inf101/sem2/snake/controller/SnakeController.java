@@ -78,7 +78,8 @@ public class SnakeController implements KeyListener, ActionListener {
     }
     
     /**
-     * Method for handling
+     * Method for handling the start game state.
+     * 
      * @param e
      */
     public void handleStart(KeyEvent e) {
