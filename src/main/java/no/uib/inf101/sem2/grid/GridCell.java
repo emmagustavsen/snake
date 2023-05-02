@@ -6,9 +6,10 @@ package no.uib.inf101.sem2.grid;
  * @param E            generics
  */
 public record GridCell<E>(CellPosition pos, E value) {
-    public GridCell(int row, int col, E value) {
-        this(new CellPosition(row, col), value);
+
+    public GridCell(CellPosition pos, E value) {
+        this.pos = pos;
+        this.value = value;
     }
 
 }
-

@@ -25,7 +25,6 @@ public class SnakeController implements KeyListener, ActionListener {
     Timer timer;
     Song song;
 
-
     /**
      * Class constructor.
      * 
@@ -42,6 +41,7 @@ public class SnakeController implements KeyListener, ActionListener {
     }
 
     /**
+     * 
      * @param action
      */
     private void clockTick(ActionEvent action) {
@@ -54,73 +54,150 @@ public class SnakeController implements KeyListener, ActionListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (controllable.getGameScreen() == GameState.START_GAME) {
-            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                song.run();
-                controllable.setGameScreen(GameState.ACTIVE_GAME);
-                viewer.repaint();
-            }
+        switch (controllable.getGameScreen()) {
+            case START_GAME:
+                handleStart(e);
+                break;
+
+            case ACTIVE_GAME:
+                handleActive(e);
+                break;
+
+            case PAUSE:
+                handlePause(e);
+                handleRestart(e);
+                handleQuit(e);
+                break;
+
+            case GAME_OVER:
+                handleGameOver(e);
+                handleMute(e);
+                handleQuit(e);
+                break;
         }
-        if (controllable.getGameScreen() == GameState.ACTIVE_GAME) {
-            if (e.getKeyCode() == KeyEvent.VK_UP) {
+    }
+    
+    /**
+     * Method for handling
+     * @param e
+     */
+    public void handleStart(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            song.run();
+            controllable.setGameScreen(GameState.ACTIVE_GAME);
+            viewer.repaint();
+        }
+    }
+
+    /**
+     * Method for handling the active game state.
+     * 
+     * @param e
+     */
+    public void handleActive(KeyEvent e) {
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_UP:
                 controllable.setDirection(Direction.UP);
-                viewer.repaint();
-            }
-            else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-                controllable.setDirection(Direction.DOWN);
-                viewer.repaint();
-            }
-            else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-                controllable.setDirection(Direction.LEFT);
-                viewer.repaint();
-            }
-            else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-                controllable.setDirection(Direction.RIGHT);
-                viewer.repaint();
-            }
-            else if (e.getKeyCode() == KeyEvent.VK_Q) {
-                System.exit(0);
-                viewer.repaint();
-            }
-            else if (e.getKeyCode() == KeyEvent.VK_P) {
-                controllable.setGameScreen(GameState.PAUSE);
-                song.doPauseMidiSounds();
-                viewer.repaint();
-            }
-            else if (e.getKeyCode() == KeyEvent.VK_R){
-                controllable.restart();
-                viewer.repaint();
-            }
-            else if (e.getKeyCode() == KeyEvent.VK_M){
-                if(song.songIsPlaying()){
-                    song.doPauseMidiSounds();
-                }
-                else{
-                    song.doUnpauseMidiSounds();
-                }
-                viewer.repaint();
-            }
-        }
-        if (controllable.getGameScreen() == GameState.PAUSE){
-            if (e.getKeyCode() == KeyEvent.VK_ENTER){
-                song.doUnpauseMidiSounds();
-                controllable.setGameScreen(GameState.ACTIVE_GAME);
-                viewer.repaint();
+                break;
 
-            }
+            case KeyEvent.VK_DOWN:
+                controllable.setDirection(Direction.DOWN);
+                break;
+
+            case KeyEvent.VK_LEFT:
+                controllable.setDirection(Direction.LEFT);
+                break;
+
+            case KeyEvent.VK_RIGHT:
+                controllable.setDirection(Direction.RIGHT);
+                break;
+
+            case KeyEvent.VK_Q:
+                handleQuit(e);
+                break;
+
+            case KeyEvent.VK_P:
+                handlePause(e);
+                break;
+
+            case KeyEvent.VK_M:
+                handleMute(e);
+                break;
         }
-        if (controllable.getGameScreen() == GameState.GAME_OVER) {
-            if (e.getKeyCode() == KeyEvent.VK_R) {
+        viewer.repaint();
+    }
+
+    /**
+     * Method for handling the pause function.
+     * 
+     * @param e
+     */
+    public void handlePause(KeyEvent e) {
+        controllable.setGameScreen(GameState.PAUSE);
+        song.doPauseMidiSounds();
+
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            song.doUnpauseMidiSounds();
+            controllable.setGameScreen(GameState.ACTIVE_GAME);
+            viewer.repaint();
+        }
+    }
+
+    public void handleGameOver(KeyEvent e) {
+        switch (e.getKeyCode()) {
+            // Restart
+            case KeyEvent.VK_R:
                 controllable.restart();
                 song.run();
-                viewer.repaint();
+                break;
 
-            }
-            else if (e.getKeyCode() == KeyEvent.VK_Q) {
+            // Quit
+            case KeyEvent.VK_Q:
                 System.exit(0);
-                viewer.repaint();
+                break;
+        }
+        viewer.repaint();
+    }
+
+    /**
+     * Method for handling the mute function.
+     * 
+     * @param e
+     */
+    public void handleMute(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_M) {
+            if (song.songIsPlaying()) {
+                song.doPauseMidiSounds();
+            }
+            else {
+                song.doUnpauseMidiSounds();
             }
         }
+        viewer.repaint();
+    }
+
+    /**
+     * Method for handling the restart function.
+     * 
+     * @param e
+     */
+    public void handleRestart(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_R) {
+            controllable.restart();
+        }
+        viewer.repaint();
+    }
+
+    /**
+     * Method for handling the quit function.
+     * 
+     * @param e
+     */
+    public void handleQuit(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_Q) {
+            System.exit(0);
+        }
+        viewer.repaint();
     }
 
     @Override

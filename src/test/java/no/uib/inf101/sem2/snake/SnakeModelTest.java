@@ -18,6 +18,7 @@ import java.util.List;
 public class SnakeModelTest {
     private SnakeModel model = new SnakeModel(new Board(10,10),new Snake(new CellPosition(1,1)));
     private Snake snake = new Snake(new CellPosition(1,1));
+
     @Test
     public void testGenerateObject() {
         this.model = new SnakeModel(new Board(10,10),new Snake(new CellPosition(1,1)));
@@ -43,12 +44,12 @@ public class SnakeModelTest {
        model.setDirection(Direction.UP);
        assertEquals(model.getDirection(), Direction.UP);
     }
+    
     @Test
     public void testSetDirectionLeft() {
         this.model = new SnakeModel(new Board(10,10),new Snake(new CellPosition(1,1)));
         model.setDirection(Direction.LEFT);
         assertEquals(model.getDirection(), Direction.LEFT);
-
     }
 
     @Test
