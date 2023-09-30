@@ -3,6 +3,7 @@ package no.uib.inf101.sem2.snake;
 import static org.junit.Assert.*;
 
 import no.uib.inf101.sem2.grid.CellPosition;
+import no.uib.inf101.sem2.grid.GridCell;
 import no.uib.inf101.sem2.snake.model.Board;
 import no.uib.inf101.sem2.snake.model.Direction;
 
@@ -117,7 +118,6 @@ public class SnakeModelTest {
     }
 
 
-
     @Test
     public void testMoveSnake() {
         SnakeModel model2 = new SnakeModel(new Board(10,10),new Snake(new CellPosition(1,1)));
@@ -138,6 +138,13 @@ public class SnakeModelTest {
         // Assert that the actual snake state matches the expected state
         assertEquals(expectedSnakePosition, model2.getSnake().getSnakePosition());
         assertEquals(model2.getBoard().get(new CellPosition(1, 4)).charValue(), 'S');
+    }
+
+    @Test
+    public void testMoveSnake2(){
+        SnakeModel newSnake = newSnake.moveSnake(-1, 0);
+        GridCell<Character> expectedHead = new GridCell<>(new CellPosition(4, 5), 'S');
+        assertEquals(expectedHead, newSnake.getSnake());
     }
 
 }
